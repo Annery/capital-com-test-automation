@@ -25,4 +25,14 @@ test.describe(`[${localeName}] Header tabs `, () => {
 
         await expect(page).toHaveURL(fcaEn.routes.support);
     });
+
+    test('Personal opens main page', async ({ page }) => {
+        const header = new Header(page, fcaEn);
+
+        await page.goto(fcaEn.routes.professional);
+
+        await header.openPersonal();
+
+        await expect(page).toHaveURL(fcaEn.routes.personal);
+    });
 });

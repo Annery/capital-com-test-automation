@@ -2,6 +2,7 @@ import { Locator, Page } from '@playwright/test';
 
 type SiteLocale = {
     routes: {
+        personal: string;
         professional: string;
         support: string;
     }
@@ -9,11 +10,16 @@ type SiteLocale = {
 
 export class Header {
     readonly root: Locator;
+    readonly personalTab: Locator;
     readonly professionalTab: Locator;
     readonly supportTab: Locator;
 
     constructor(page: Page, siteLocale: SiteLocale) {
         this.root = page.getByTestId('header');
+
+        this.personalTab = this.root
+            .locator(`a.GQwn[href="${siteLocale.routes.personal}"]`)
+            .filter({ visible: true });
 
         this.professionalTab = this.root
             .locator(`a[href="${siteLocale.routes.professional}"]`)
@@ -30,5 +36,9 @@ export class Header {
 
     async openSupport() {
         await this.supportTab.click();
+    }
+
+    async openPersonal() {
+        await this.personalTab.click();
     }
 }

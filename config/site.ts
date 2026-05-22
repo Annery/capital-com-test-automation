@@ -9,6 +9,7 @@ export const site = {
 
       routes: {
         home: fcaEnBasePath,
+        personal: fcaEnBasePath,
         professional: `${fcaEnBasePath}/professional`,
         support: `${fcaEnBasePath}/help`,
       },
