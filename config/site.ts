@@ -10,6 +10,7 @@ export const site = {
       routes: {
         home: fcaEnBasePath,
         professional: `${fcaEnBasePath}/professional`,
+        support: `${fcaEnBasePath}/help`,
       },
     },
   },
