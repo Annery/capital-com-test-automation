@@ -2,7 +2,7 @@ import { Locator, Page } from '@playwright/test';
 
 type SiteLocale = {
     routes: {
-        personal: string;
+        home: string;
         professional: string;
         support: string;
     };
@@ -13,13 +13,16 @@ export class Header {
     readonly personalTab: Locator;
     readonly professionalTab: Locator;
     readonly supportTab: Locator;
+    readonly logo: Locator;
 
     constructor(page: Page, siteLocale: SiteLocale) {
         this.root = page.getByTestId('header');
 
-        this.personalTab = this.getVisibleHeaderTabByHref(siteLocale.routes.personal);
+        this.personalTab = this.getVisibleHeaderTabByHref(siteLocale.routes.home);
         this.professionalTab = this.getVisibleHeaderTabByHref(siteLocale.routes.professional);
         this.supportTab = this.getVisibleHeaderTabByHref(siteLocale.routes.support);
+
+        this.logo = this.root.getByTestId('logo');
     }
 
     private getVisibleHeaderTabByHref(href: string): Locator {
@@ -38,5 +41,9 @@ export class Header {
 
     async openPersonal() {
         await this.personalTab.click();
+    }
+
+    async clickLogo() {
+        await this.logo.click();
     }
 }

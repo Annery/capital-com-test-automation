@@ -5,7 +5,7 @@ import { Header } from '../components/Header';
 const fcaEn = site.fca.en;
 const localeName = `${fcaEn.license} ${fcaEn.language}`;
 
-test.describe(`[${localeName}] Header tabs `, () => {
+test.describe(`[${localeName}] Header navigation`, () => {
     test('Professional tab opens page', async ({ page }) => {
         const header = new Header(page, fcaEn);
 
@@ -26,13 +26,23 @@ test.describe(`[${localeName}] Header tabs `, () => {
         await expect(page).toHaveURL(fcaEn.routes.support);
     });
 
-    test('Personal opens main page', async ({ page }) => {
+    test('Personal tab opens main page', async ({ page }) => {
         const header = new Header(page, fcaEn);
 
         await page.goto(fcaEn.routes.professional);
 
         await header.openPersonal();
 
-        await expect(page).toHaveURL(fcaEn.routes.personal);
+        await expect(page).toHaveURL(fcaEn.routes.home);
+    });
+
+    test('Logo opens main page', async ({ page }) => {
+        const header = new Header(page, fcaEn);
+
+        await page.goto(fcaEn.routes.professional);
+
+        await header.clickLogo();
+
+        await expect(page).toHaveURL(fcaEn.routes.home);
     });
 });
