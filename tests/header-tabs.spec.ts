@@ -15,6 +15,10 @@ test.describe(`[${localeName}] Header navigation`, () => {
         wrongLocationModal = new WrongLocationModal(page);
     });
 
+    test.afterEach(async ({ page }) => {
+        await page.close();
+    });
+
     test('Professional tab opens page', async ({ page }) => {
         await page.goto(fcaEn.routes.home);
         await wrongLocationModal.stayHereIfVisible();
