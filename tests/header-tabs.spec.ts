@@ -1,15 +1,23 @@
 import { expect, test } from '@playwright/test';
 import { site } from '../config/site';
 import { Header } from '../components/Header';
+import { WrongLocationModal } from '../modal-windows/WrongLocationModal';
 
 const fcaEn = site.fca.en;
 const localeName = `${fcaEn.license} ${fcaEn.language}`;
 
 test.describe(`[${localeName}] Header navigation`, () => {
-    test('Professional tab opens page', async ({ page }) => {
-        const header = new Header(page, fcaEn);
+    let header: Header;
+    let wrongLocationModal: WrongLocationModal;
 
+    test.beforeEach(async ({ page }) => {
+        header = new Header(page, fcaEn);
+        wrongLocationModal = new WrongLocationModal(page);
+    });
+
+    test('Professional tab opens page', async ({ page }) => {
         await page.goto(fcaEn.routes.home);
+        await wrongLocationModal.stayHereIfVisible();
 
         await header.openProfessional();
 
@@ -17,9 +25,8 @@ test.describe(`[${localeName}] Header navigation`, () => {
     });
 
     test('Support tab opens page', async ({ page }) => {
-        const header = new Header(page, fcaEn);
-
         await page.goto(fcaEn.routes.home);
+        await wrongLocationModal.stayHereIfVisible();
 
         await header.openSupport();
 
@@ -27,9 +34,8 @@ test.describe(`[${localeName}] Header navigation`, () => {
     });
 
     test('Personal tab opens main page', async ({ page }) => {
-        const header = new Header(page, fcaEn);
-
         await page.goto(fcaEn.routes.professional);
+        await wrongLocationModal.stayHereIfVisible();
 
         await header.openPersonal();
 
@@ -37,9 +43,8 @@ test.describe(`[${localeName}] Header navigation`, () => {
     });
 
     test('Logo opens main page', async ({ page }) => {
-        const header = new Header(page, fcaEn);
-
         await page.goto(fcaEn.routes.professional);
+        await wrongLocationModal.stayHereIfVisible();
 
         await header.clickLogo();
 
