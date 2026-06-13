@@ -7,6 +7,11 @@ import { RegionalSettingsModal } from '../src/page-objects/modal-windows/Regiona
 const fcaEn = licenses.fca.en;
 const localeName = `${fcaEn.license} ${fcaEn.language}`;
 
+const ukRegion = {
+    name: 'United Kingdom',
+    slug: 'united_kingdom',
+}
+
 test.describe(`[${localeName}] Header regional settings`, () => {
     let header: Header;
     let wrongLocationModal: WrongLocationModal;
@@ -38,5 +43,14 @@ test.describe(`[${localeName}] Header regional settings`, () => {
         await regionalSettingsModal.openCountryList();
 
         await expect(regionalSettingsModal.SearchBox).toBeVisible();
+    });
+
+    test(`${ukRegion.name} can be selected`, async () => {
+        await header.openRegionalSettings();
+        await regionalSettingsModal.openCountryList();
+
+        await regionalSettingsModal.selectCountry(ukRegion.slug);
+
+        await expect(regionalSettingsModal.CountrySelector).toContainText(ukRegion.name);
     });
 });
