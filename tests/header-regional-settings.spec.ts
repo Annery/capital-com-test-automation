@@ -16,6 +16,9 @@ test.describe(`[${localeName}] Header regional settings`, () => {
         header = new Header(page, fcaEn);
         wrongLocationModal = new WrongLocationModal(page);
         regionalSettingsModal = new RegionalSettingsModal(page);
+
+        await page.goto(fcaEn.home);
+        await wrongLocationModal.stayHereIfVisible();
     });
 
     test.afterEach(async ({ page }) => {
@@ -23,12 +26,17 @@ test.describe(`[${localeName}] Header regional settings`, () => {
     });
 
     test('Regional settings opens', async ({ page }) => {
-        await page.goto(fcaEn.home);
-        await wrongLocationModal.stayHereIfVisible();
-
         await header.openRegionalSettings();
 
         await expect.poll(() => regionalSettingsModal.isOpen())
             .toBe(true);
+    });
+
+    test('Country dropdown opens with a search box', async () => {
+        await header.openRegionalSettings();
+
+        await regionalSettingsModal.openCountryList();
+
+        await expect(regionalSettingsModal.SearchBox).toBeVisible();
     });
 });
