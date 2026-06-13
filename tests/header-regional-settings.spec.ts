@@ -43,7 +43,7 @@ test.describe(`[${localeName}] Header regional settings`, () => {
 
         await regionalSettingsModal.openCountryList();
 
-        await expect(regionalSettingsModal.SearchBox).toBeVisible();
+        await expect(regionalSettingsModal.searchBox).toBeVisible();
     });
 
     test(`${ukRegion.name} can be selected`, async () => {
@@ -52,7 +52,7 @@ test.describe(`[${localeName}] Header regional settings`, () => {
 
         await regionalSettingsModal.selectCountry(ukRegion.slug);
 
-        await expect(regionalSettingsModal.CountrySelector).toContainText(ukRegion.name);
+        await expect(regionalSettingsModal.countrySelector).toContainText(ukRegion.name);
     });
 
     test('Applied entity matches the license', async () => {
@@ -63,6 +63,6 @@ test.describe(`[${localeName}] Header regional settings`, () => {
 
         await header.openRegionalSettings();
 
-        await expect(regionalSettingsModal.Entity).toContainText(ukRegion.entity);
+        await expect(regionalSettingsModal.entity).toContainText(ukRegion.entity);
     });
 });

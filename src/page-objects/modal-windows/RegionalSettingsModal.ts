@@ -1,34 +1,33 @@
 import { Locator, Page } from "@playwright/test";
 
+const regionalSettingsSelectors = {
+    closeButton: 'button[aria-label="Close modal"]',
+    countrySelector: '[data-type="country_switcher_ctry"]',
+    searchBox: '#search-country',
+    applyButton: 'button[data-type="country_switcher_cancel"]:not([aria-label])',
+    country: (slug: string) => `[data-type="nav_country_${slug}"]`,
+} as const;
+
 export class RegionalSettingsModal {
     private readonly page: Page;
     private readonly closeButton: Locator;
-    private readonly countrySelector: Locator;
-    private readonly searchBox: Locator;
     private readonly applyButton: Locator;
-    private readonly entity: Locator;
 
-    get SearchBox(): Locator {
-        return this.searchBox;
-    }
-
-    get CountrySelector(): Locator {
-        return this.countrySelector;
-    }
-
-    get Entity(): Locator {
-        return this.entity;
-    }
+    readonly countrySelector: Locator;
+    readonly searchBox: Locator;
+    readonly entity: Locator;
 
     constructor(page: Page) {
         this.page = page;
-        this.closeButton = page.locator('button[aria-label="Close modal"]');
-        this.countrySelector = page.locator('[data-type="country_switcher_ctry"]');
-        this.searchBox = page.locator('#search-country');
-        this.applyButton = page.locator('button[data-type="country_switcher_cancel"]:not([aria-label])')
+        this.closeButton = page.locator(regionalSettingsSelectors.closeButton);
+        this.countrySelector = page.locator(regionalSettingsSelectors.countrySelector);
+        this.searchBox = page.locator(regionalSettingsSelectors.searchBox);
+
+        this.applyButton = page.locator(regionalSettingsSelectors.applyButton)
             .first();
+
         this.entity = page.locator('div')
-            .filter({ has: page.locator('button[aria-label="Close modal"]') })
+            .filter({ has: page.locator(regionalSettingsSelectors.closeButton) })
             .locator('p')
             .first();
     }
@@ -42,7 +41,7 @@ export class RegionalSettingsModal {
     }
 
     async selectCountry(slug: string): Promise<void> {
-        await this.page.locator(`[data-type="nav_country_${slug}"]`).click();
+        await this.page.locator(regionalSettingsSelectors.country(slug)).click();
     }
 
     async apply(): Promise<void> {
