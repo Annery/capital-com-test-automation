@@ -34,8 +34,7 @@ test.describe(`[${localeName}] Header regional settings`, () => {
     test('Regional settings opens', async ({ page }) => {
         await header.openRegionalSettings();
 
-        await expect.poll(() => regionalSettingsModal.isOpen())
-            .toBe(true);
+        await expect(regionalSettingsModal.root).toBeVisible();
     });
 
     test('Country dropdown opens with a search box', async () => {

@@ -31,12 +31,12 @@ test.describe(`[${localeName}] Header auth entry`, () => {
     test('Login button opens the login form', async () => {
         await header.openLogin();
 
-        await expect.poll(() => loginModal.isOpen()).toBe(true);
+        await expect(loginModal.root).toBeVisible();
     });
 
     test('Open account button opens the sign up form', async () => {
         await header.openOpenAccount();
 
-        await expect.poll(() => signUpModal.isOpen()).toBe(true);
+        await expect(signUpModal.root).toBeVisible();
     });
 });

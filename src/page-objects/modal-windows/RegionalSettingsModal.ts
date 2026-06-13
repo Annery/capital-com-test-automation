@@ -1,4 +1,5 @@
 import { Locator, Page } from "@playwright/test";
+import { BaseModal } from '../base/BaseModal';
 
 const regionalSettingsSelectors = {
     closeButton: 'button[aria-label="Close modal"]',
@@ -8,32 +9,26 @@ const regionalSettingsSelectors = {
     country: (slug: string) => `[data-type="nav_country_${slug}"]`,
 } as const;
 
-export class RegionalSettingsModal {
-    private readonly page: Page;
-    private readonly closeButton: Locator;
-    private readonly applyButton: Locator;
-
+export class RegionalSettingsModal extends BaseModal {
     readonly countrySelector: Locator;
     readonly searchBox: Locator;
     readonly entity: Locator;
 
+    private readonly applyButton: Locator;
+
     constructor(page: Page) {
-        this.page = page;
-        this.closeButton = page.locator(regionalSettingsSelectors.closeButton);
+        const closeButton = page.locator(regionalSettingsSelectors.closeButton);
+        super(page, closeButton);
+
         this.countrySelector = page.locator(regionalSettingsSelectors.countrySelector);
         this.searchBox = page.locator(regionalSettingsSelectors.searchBox);
-
         this.applyButton = page.locator(regionalSettingsSelectors.applyButton)
             .first();
 
         this.entity = page.locator('div')
-            .filter({ has: page.locator(regionalSettingsSelectors.closeButton) })
+            .filter({ has: closeButton })
             .locator('p')
             .first();
-    }
-
-    async isOpen(): Promise<boolean> {
-        return await this.closeButton.isVisible();
     }
 
     async openCountryList(): Promise<void> {

@@ -1,13 +1,12 @@
-import { Locator, Page } from '@playwright/test';
+import { Page } from '@playwright/test';
+import { BaseModal } from '../base/BaseModal';
 
-export class SignUpModal {
-    private readonly closeButton: Locator;
+const signUpSelectors = {
+    closeButton: '[data-type="SIGN_UP_close"]',
+} as const;
 
+export class SignUpModal extends BaseModal {
     constructor(page: Page) {
-        this.closeButton = page.locator('[data-type="SIGN_UP_close"]');
-    }
-
-    async isOpen(): Promise<boolean> {
-        return await this.closeButton.isVisible();
+        super(page, page.locator(signUpSelectors.closeButton));
     }
 }
