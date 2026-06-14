@@ -24,7 +24,8 @@ export const locales: Locale[] = [
 
   { license: 'SCB', language: 'AR', home: '/ar-int', nonHomePage: '/ar-int/professional', entity: 'Capital Com Online Investments Ltd' },
   { license: 'SCB', language: 'DE', home: '/de-int', nonHomePage: '/de-int/professional', entity: 'Capital Com Online Investments Ltd' },
-  { license: 'SCB', language: 'EN', home: '/en-int', nonHomePage: '/en-int/professional', entity: 'Capital Com Online Investments Ltd' },
+  { license: 'SCB', language: 'EN', home: '/en-int', nonHomePage: '/en-int/professional', entity: 'Capital Com Online Investments Ltd', unavailable: ['navigation', 'regionalSettings', 'login'], },
+  //TODO: /en-int → /en-eu with non-SCB geo (CYSEC): the entire locale moves to CYSEC. A proxy is required.
   { license: 'SCB', language: 'ES', home: '/es-int', nonHomePage: '/es-int/professional', entity: 'Capital Com Online Investments Ltd' },
   { license: 'SCB', language: 'FR', home: '/fr-int', nonHomePage: '/fr-int/professional', entity: 'Capital Com Online Investments Ltd' },
   { license: 'SCB', language: 'MN', home: '/mn-int', nonHomePage: '/mn-int/help', entity: 'Capital Com Online Investments Ltd' },
