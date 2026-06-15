@@ -3,7 +3,7 @@ export type Language =
   | 'EN' | 'AR' | 'DE' | 'FR' | 'RU' | 'ES' | 'MN' | 'VI'
   | 'ZH_HANS' | 'ZH_HANT' | 'EL' | 'IT' | 'HU' | 'NL' | 'PL' | 'RO';
 
-export type Feature = 'regionalSettings' | 'login' | 'signUp' | 'navigation';
+export type Feature = 'regionalSettings' | 'login' | 'navigation';
 
 export interface Locale {
   license: License;

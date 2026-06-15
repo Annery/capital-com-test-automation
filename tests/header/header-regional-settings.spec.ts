@@ -1,59 +1,46 @@
-import { expect, test } from '@playwright/test';
-import { selectLocales } from '../../src/config/locale-filter';
+import { test, expect, describePerLocale } from '../../src/fixtures/test';
 import { licenseCountry } from '../../src/config/regional-settings.data';
-import { Header } from '../../src/page-objects/components/Header';
-import { WrongLocationModal } from '../../src/page-objects/modal-windows/WrongLocationModal';
-import { ImportantNoticeModal } from '../../src/page-objects/modal-windows/ImportantNoticeModal';
-import { RegionalSettingsModal } from '../../src/page-objects/modal-windows/RegionalSettingsModal';
 
-for (const locale of selectLocales({ feature: 'regionalSettings' })) {
+describePerLocale('Header regional settings', { feature: 'regionalSettings' }, (locale) => {
     const country = licenseCountry[locale.license];
-    test.describe(`[${locale.license} ${locale.language}] Header regional settings`,
-        { tag: [`@${locale.license}`, `@${locale.language}`] },
-        () => {
-            let header: Header;
-            let wrongLocationModal: WrongLocationModal;
-            let regionalSettingsModal: RegionalSettingsModal;
-            let importantNoticeModal: ImportantNoticeModal;
 
-            test.beforeEach(async ({ page }) => {
-                header = new Header(page, locale);
-                wrongLocationModal = new WrongLocationModal(page);
-                regionalSettingsModal = new RegionalSettingsModal(page);
-                importantNoticeModal = new ImportantNoticeModal(page);
+    test.beforeEach(async ({ page, wrongLocationModal, importantNoticeModal }) => {
+        await page.goto(locale.home);
+        await wrongLocationModal.stayHereIfVisible();
+        await importantNoticeModal.confirmIfVisible();
+    });
 
-                await page.goto(locale.home);
-                await wrongLocationModal.stayHereIfVisible();
-                await importantNoticeModal.confirmIfVisible();
-            });
+    test('Regional settings opens', async ({ header, regionalSettingsModal }) => {
+        await header.openRegionalSettings();
 
-            test('Regional settings opens', async () => {
-                await header.openRegionalSettings();
+        await expect(regionalSettingsModal.root).toBeVisible();
+    });
 
-                await expect(regionalSettingsModal.root).toBeVisible();
-            });
+    test('Country dropdown opens with a search box', async ({ header, regionalSettingsModal }) => {
+        await header.openRegionalSettings();
 
-            test('Country dropdown opens with a search box', async () => {
-                await header.openRegionalSettings();
+        await regionalSettingsModal.openCountryList();
 
-                await regionalSettingsModal.openCountryList();
+        await expect(regionalSettingsModal.searchBox).toBeVisible();
+    });
 
-                await expect(regionalSettingsModal.searchBox).toBeVisible();
-            });
+    test(`${country.name} can be selected`, async ({ header, regionalSettingsModal }) => {
+        await header.openRegionalSettings();
+        await regionalSettingsModal.openCountryList();
 
-            test(`${country.name} can be selected`, async () => {
-                await header.openRegionalSettings();
-                await regionalSettingsModal.openCountryList();
+        await regionalSettingsModal.selectCountry(country.slug);
 
-                await regionalSettingsModal.selectCountry(country.slug);
+        await expect(regionalSettingsModal.countrySelector).toContainText(country.name);
+    });
 
-                await expect(regionalSettingsModal.countrySelector).toContainText(country.name);
-            });
+    test('Entity matches the license', async ({ header, regionalSettingsModal }) => {
+        await header.openRegionalSettings();
+        await regionalSettingsModal.openCountryList();
+        await regionalSettingsModal.selectCountry(country.slug);
+        await regionalSettingsModal.apply();
 
-            test('Entity matches the license', async () => {
-                await header.openRegionalSettings();
+        await header.openRegionalSettings();
 
-                await expect(regionalSettingsModal.entity).toContainText(locale.entity);
-            });
-        });
-}
+        await expect(regionalSettingsModal.entity).toContainText(locale.entity);
+    });
+});

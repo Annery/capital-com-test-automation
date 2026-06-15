@@ -1,31 +1,13 @@
-import { expect, test } from '@playwright/test';
-import { selectLocales } from '../../src/config/locale-filter';
-import { Header } from '../../src/page-objects/components/Header';
-import { WrongLocationModal } from '../../src/page-objects/modal-windows/WrongLocationModal';
-import { ImportantNoticeModal } from '../../src/page-objects/modal-windows/ImportantNoticeModal';
+import { test, expect, describePerLocale } from '../../src/fixtures/test';
 
-for (const locale of selectLocales({ feature: 'navigation' })) {
-    test.describe(`[${locale.license} ${locale.language}] Header navigation`,
-        { tag: [`@${locale.license}`, `@${locale.language}`] },
-        () => {
-            let header: Header;
-            let wrongLocationModal: WrongLocationModal;
-            let importantNoticeModal: ImportantNoticeModal;
+describePerLocale('Header navigation', { feature: 'navigation' }, (locale) => {
+    test('Logo opens main page', async ({ page, header, wrongLocationModal, importantNoticeModal }) => {
+        await page.goto(locale.nonHomePage);
+        await wrongLocationModal.stayHereIfVisible();
+        await importantNoticeModal.confirmIfVisible();
 
-            test.beforeEach(async ({ page }) => {
-                header = new Header(page, locale);
-                wrongLocationModal = new WrongLocationModal(page);
-                importantNoticeModal = new ImportantNoticeModal(page);
-            });
+        await header.clickLogo();
 
-            test('Logo opens main page', async ({ page }) => {
-                await page.goto(locale.nonHomePage);
-                await wrongLocationModal.stayHereIfVisible();
-                await importantNoticeModal.confirmIfVisible();
-
-                await header.clickLogo();
-
-                await expect(page).toHaveURL(locale.home);
-            });
-        });
-}
+        await expect(page).toHaveURL(locale.home);
+    });
+});
