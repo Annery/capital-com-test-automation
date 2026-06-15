@@ -3,7 +3,7 @@ export type Language =
   | 'EN' | 'AR' | 'DE' | 'FR' | 'RU' | 'ES' | 'MN' | 'VI'
   | 'ZH_HANS' | 'ZH_HANT' | 'EL' | 'IT' | 'HU' | 'NL' | 'PL' | 'RO';
 
-export type Feature = 'regionalSettings' | 'login' | 'navigation';
+export type Feature = 'regionalSettings' | 'login' | 'navigation' | 'learn';
 
 export interface Locale {
   license: License;
@@ -28,9 +28,9 @@ export const locales: Locale[] = [
   //TODO: /en-int → /en-eu with non-SCB geo (CYSEC): the entire locale moves to CYSEC. A proxy is required.
   { license: 'SCB', language: 'ES', home: '/es-int', nonHomePage: '/es-int/professional', entity: 'Capital Com Online Investments Ltd' },
   { license: 'SCB', language: 'FR', home: '/fr-int', nonHomePage: '/fr-int/professional', entity: 'Capital Com Online Investments Ltd' },
-  { license: 'SCB', language: 'MN', home: '/mn-int', nonHomePage: '/mn-int/help', entity: 'Capital Com Online Investments Ltd' },
+  { license: 'SCB', language: 'MN', home: '/mn-int', nonHomePage: '/mn-int/help', entity: 'Capital Com Online Investments Ltd', unavailable: ['learn'] },
   { license: 'SCB', language: 'RU', home: '/ru-int', nonHomePage: '/ru-int/professional', entity: 'Capital Com Online Investments Ltd' },
-  { license: 'SCB', language: 'VI', home: '/vi-int', nonHomePage: '/vi-int/help', entity: 'Công ty TNHH Đầu tư Trực tuyến Capital Com' },
+  { license: 'SCB', language: 'VI', home: '/vi-int', nonHomePage: '/vi-int/help', entity: 'Công ty TNHH Đầu tư Trực tuyến Capital Com', unavailable: ['learn'] },
   { license: 'SCB', language: 'ZH_HANS', home: '/zh-hans', nonHomePage: '/zh-hans/professional', entity: 'Capital Com Online Investments Ltd' },
   { license: 'SCB', language: 'ZH_HANT', home: '/zh-hant', nonHomePage: '/zh-hant/professional', entity: 'Capital Com Online Investments Ltd' },
 

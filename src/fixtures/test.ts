@@ -2,6 +2,7 @@ import { test as base, expect } from '@playwright/test';
 import { locales, type Locale } from '../config/licenses';
 import { selectLocales, type LocaleFilter } from '../config/locale-filter';
 import { Header } from '../page-objects/components/Header';
+import { ContentPage } from '../page-objects/pages/ContentPage';
 import { WrongLocationModal } from '../page-objects/modal-windows/WrongLocationModal';
 import { ImportantNoticeModal } from '../page-objects/modal-windows/ImportantNoticeModal';
 import { RegionalSettingsModal } from '../page-objects/modal-windows/RegionalSettingsModal';
@@ -16,6 +17,7 @@ type Fixtures = {
     regionalSettingsModal: RegionalSettingsModal;
     loginModal: LoginModal;
     signUpModal: SignUpModal;
+    contentPage: ContentPage;
 };
 
 export const test = base.extend<Fixtures>({
@@ -43,6 +45,10 @@ export const test = base.extend<Fixtures>({
 
     signUpModal: async ({ page }, use) => {
         await use(new SignUpModal(page));
+    },
+
+    contentPage: async ({ page, appLocale }, use) => {
+        await use(new ContentPage(page, appLocale.home));
     },
 });
 
