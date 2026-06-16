@@ -1,4 +1,4 @@
-import { MenuPage, allLicenses } from '../content/content-page';
+import { type MenuPage, allLicenses } from '../content/content-page';
 
 export const learnPages: MenuPage[] = [
     {
