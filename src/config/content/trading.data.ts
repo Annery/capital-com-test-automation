@@ -1,25 +1,10 @@
-import { type License } from './licenses';
-import { LocaleFilter } from './locale-filter';
-
-export interface Cta {
-    type: string;
-    unavailable?: License[];
-}
-
-export interface MenuPage {
-    title: string;
-    path: string;
-    filter: LocaleFilter;
-    ctas: Cta[];
-}
-
-const learnLicenses: License[] = ['FCA', 'ASIC', 'CMA', 'SCB', 'CYSEC'];
+import { MenuPage, allLicenses } from '../content/content-page';
 
 export const learnPages: MenuPage[] = [
     {
         title: 'Trading strategies',
         path: '/learn/trading-strategies',
-        filter: { feature: 'learn', license: learnLicenses, excludeLanguage: 'RO' },
+        filter: { feature: 'learn', license: allLicenses, excludeLanguage: 'RO' },
         ctas: [
             { type: 'background_banner_block_btn1_signup' },
             { type: 'background_banner_block_btn2_demo' },
@@ -30,7 +15,7 @@ export const learnPages: MenuPage[] = [
     {
         title: 'Technical analysis',
         path: '/learn/technical-analysis',
-        filter: { feature: 'learn', license: learnLicenses, excludeLanguage: 'RO' },
+        filter: { feature: 'learn', license: allLicenses, excludeLanguage: 'RO' },
         ctas: [
             { type: 'banner_with_steps' },
         ]
@@ -38,7 +23,7 @@ export const learnPages: MenuPage[] = [
     {
         title: 'Trading psychology',
         path: '/learn/trading-psychology',
-        filter: { feature: 'learn', license: learnLicenses, excludeLanguage: 'RO' },
+        filter: { feature: 'learn', license: allLicenses, excludeLanguage: 'RO' },
         ctas: [
             { type: 'banner_with_steps' },
         ]
@@ -46,7 +31,7 @@ export const learnPages: MenuPage[] = [
     {
         title: 'All resources',
         path: '/learn',
-        filter: { feature: 'learn', license: learnLicenses },
+        filter: { feature: 'learn', license: allLicenses },
         ctas: [
             { type: 'background_banner_block_btn1_signup' },
             { type: 'background_banner_block_btn2_demo' },
