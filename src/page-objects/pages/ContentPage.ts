@@ -6,7 +6,10 @@ const contentPageSelectors = {
 } as const;
 
 export class ContentPage {
-    constructor(private readonly page: Page, private readonly home: string) { }
+    constructor(
+        private readonly page: Page,
+        private readonly home: string,
+    ) {}
 
     async open(path: string): Promise<void> {
         await this.page.goto(contentPageSelectors.tradingStrategiesPath(this.home, path));

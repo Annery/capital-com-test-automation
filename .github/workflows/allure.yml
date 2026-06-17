@@ -1,50 +1,50 @@
 name: Allure Report
 
 on:
-  push:
-    branches: [allure-results]
-  workflow_dispatch:
+    push:
+        branches: [allure-results]
+    workflow_dispatch:
 
 permissions:
-  contents: write
+    contents: write
 
 jobs:
-  publish:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout results
-        uses: actions/checkout@v4
-        with:
-          ref: allure-results
-          path: results
+    publish:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout results
+              uses: actions/checkout@v4
+              with:
+                  ref: allure-results
+                  path: results
 
-      - name: Checkout gh-pages
-        uses: actions/checkout@v4
-        with:
-          ref: gh-pages
-          path: gh-pages
-        continue-on-error: true
+            - name: Checkout gh-pages
+              uses: actions/checkout@v4
+              with:
+                  ref: gh-pages
+                  path: gh-pages
+              continue-on-error: true
 
-      - name: Setup JDK
-        uses: actions/setup-java@v4
-        with:
-          distribution: temurin
-          java-version: '17'
+            - name: Setup JDK
+              uses: actions/setup-java@v4
+              with:
+                  distribution: temurin
+                  java-version: '17'
 
-      - name: Install Allure CLI
-        run: npm install -g allure-commandline
+            - name: Install Allure CLI
+              run: npm install -g allure-commandline
 
-      - name: Restore previous history
-        run: |
-          mkdir -p results/allure-results/history
-          if [ -d gh-pages/history ]; then cp -r gh-pages/history/* results/allure-results/history/ || true; fi
+            - name: Restore previous history
+              run: |
+                  mkdir -p results/allure-results/history
+                  if [ -d gh-pages/history ]; then cp -r gh-pages/history/* results/allure-results/history/ || true; fi
 
-      - name: Generate report
-        run: allure generate results/allure-results --clean -o allure-report
+            - name: Generate report
+              run: allure generate results/allure-results --clean -o allure-report
 
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_branch: gh-pages
-          publish_dir: allure-report
+            - name: Deploy to GitHub Pages
+              uses: peaceiris/actions-gh-pages@v4
+              with:
+                  github_token: ${{ secrets.GITHUB_TOKEN }}
+                  publish_branch: gh-pages
+                  publish_dir: allure-report

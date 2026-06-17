@@ -25,7 +25,10 @@ describePerLocale('Header regional settings', { feature: 'regionalSettings' }, (
         await expect(regionalSettingsModal.searchBox).toBeVisible();
     });
 
-    test(`${country.name} appears in the country search results`, async ({ header, regionalSettingsModal }) => {
+    test(`${country.name} appears in the country search results`, async ({
+        header,
+        regionalSettingsModal,
+    }) => {
         await header.openRegionalSettings();
         await regionalSettingsModal.openCountryList();
         await regionalSettingsModal.searchCountry(country.name);
@@ -42,9 +45,15 @@ describePerLocale('Header regional settings', { feature: 'regionalSettings' }, (
         await expect(regionalSettingsModal.countrySelector).toContainText(country.name);
     });
 
-    test('Switching language keeps the license', async ({ page, header, regionalSettingsModal }) => {
-        const candidates = selectLocales({ license: locale.license, feature: 'regionalSettings' })
-            .filter((l) => l.language !== locale.language);
+    test('Switching language keeps the license', async ({
+        page,
+        header,
+        regionalSettingsModal,
+    }) => {
+        const candidates = selectLocales({
+            license: locale.license,
+            feature: 'regionalSettings',
+        }).filter((l) => l.language !== locale.language);
         test.skip(candidates.length === 0, `${locale.license} has a single language`);
 
         await header.openRegionalSettings();

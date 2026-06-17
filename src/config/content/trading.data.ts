@@ -10,23 +10,19 @@ export const learnPages: MenuPage[] = [
             { type: 'background_banner_block_btn2_demo' },
             { type: 'tiles_w_img_btn2_signup', unavailable: ['ASIC', 'CMA', 'SCB', 'CYSEC'] },
             { type: 'banner_with_steps' },
-        ]
+        ],
     },
     {
         title: 'Technical analysis',
         path: '/learn/technical-analysis',
         filter: { feature: 'learn', license: allLicenses, excludeLanguage: 'RO' },
-        ctas: [
-            { type: 'banner_with_steps' },
-        ]
+        ctas: [{ type: 'banner_with_steps' }],
     },
     {
         title: 'Trading psychology',
         path: '/learn/trading-psychology',
         filter: { feature: 'learn', license: allLicenses, excludeLanguage: 'RO' },
-        ctas: [
-            { type: 'banner_with_steps' },
-        ]
+        ctas: [{ type: 'banner_with_steps' }],
     },
     {
         title: 'All resources',
@@ -36,7 +32,7 @@ export const learnPages: MenuPage[] = [
             { type: 'background_banner_block_btn1_signup' },
             { type: 'background_banner_block_btn2_demo' },
             { type: 'banner_with_steps' },
-        ]
+        ],
     },
     {
         title: 'Webinars',

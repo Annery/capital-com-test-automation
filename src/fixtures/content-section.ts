@@ -11,9 +11,14 @@ export function describeContentSection(section: string, pages: MenuPage[]): void
             });
 
             for (const cta of menuPage.ctas) {
-                test(`[${cta.type}] opens the sign up form`, async ({ contentPage, signUpModal }) => {
-                    test.skip(cta.unavailable?.includes(locale.license) ?? false,
-                        `${cta.type} is N/A for ${locale.license}`);
+                test(`[${cta.type}] opens the sign up form`, async ({
+                    contentPage,
+                    signUpModal,
+                }) => {
+                    test.skip(
+                        cta.unavailable?.includes(locale.license) ?? false,
+                        `${cta.type} is N/A for ${locale.license}`,
+                    );
 
                     await expect(contentPage.cta(cta.type)).toBeVisible();
                     await contentPage.clickCta(cta.type);
@@ -24,4 +29,3 @@ export function describeContentSection(section: string, pages: MenuPage[]): void
         });
     }
 }
-

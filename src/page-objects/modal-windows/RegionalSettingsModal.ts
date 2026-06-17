@@ -1,6 +1,6 @@
-import { Locator, Page } from "@playwright/test";
+import { Locator, Page } from '@playwright/test';
 import { BaseModal } from '../base/BaseModal';
-import { TIMEOUTS } from "../../config/timeouts";
+import { TIMEOUTS } from '../../config/timeouts';
 
 const regionalSettingsSelectors = {
     closeButton: 'button[aria-label="Close modal"]',
@@ -30,12 +30,10 @@ export class RegionalSettingsModal extends BaseModal {
         this.searchBox = page.locator(regionalSettingsSelectors.searchBox);
         this.applyButton = page.locator(regionalSettingsSelectors.applyButton);
 
-        this.entity = page.locator('div')
-            .filter({ has: closeButton })
-            .locator('p')
-            .first();
+        this.entity = page.locator('div').filter({ has: closeButton }).locator('p').first();
 
-        this.languageBlock = page.locator(regionalSettingsSelectors.languageBlock)
+        this.languageBlock = page
+            .locator(regionalSettingsSelectors.languageBlock)
             .filter({ has: page.locator(regionalSettingsSelectors.languageSelector) });
     }
 
@@ -62,12 +60,14 @@ export class RegionalSettingsModal extends BaseModal {
     async offeredLanguages(): Promise<string[]> {
         const options = this.languageBlock.locator(regionalSettingsSelectors.anyOption);
 
-        await options.first()
+        await options
+            .first()
             .waitFor({ state: 'visible', timeout: TIMEOUTS.modalAppearance })
-            .catch(() => { });
+            .catch(() => {});
 
         return options.evaluateAll((els) =>
-            els.map((el) => el.getAttribute('data-type')!.replace('nav_country_', '')));
+            els.map((el) => el.getAttribute('data-type')!.replace('nav_country_', '')),
+        );
     }
 
     async selectLanguage(name: string): Promise<void> {

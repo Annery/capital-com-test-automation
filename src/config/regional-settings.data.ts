@@ -14,9 +14,20 @@ export const licenseCountry: Record<License, Country> = {
 };
 
 export const languageOptionName: Record<Language, string> = {
-    EN: 'english', AR: 'arabic', DE: 'german', FR: 'french', RU: 'russian',
-    ES: 'spanish', MN: 'mongolian', VI: 'vietnamese',
+    EN: 'english',
+    AR: 'arabic',
+    DE: 'german',
+    FR: 'french',
+    RU: 'russian',
+    ES: 'spanish',
+    MN: 'mongolian',
+    VI: 'vietnamese',
     ZH_HANS: 'simplified_chinese',
     ZH_HANT: 'traditional_chinese',
-    EL: 'greek', IT: 'italian', HU: 'hungarian', NL: 'dutch', PL: 'polish', RO: 'romanian',
+    EL: 'greek',
+    IT: 'italian',
+    HU: 'hungarian',
+    NL: 'dutch',
+    PL: 'polish',
+    RO: 'romanian',
 };
