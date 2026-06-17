@@ -18,6 +18,7 @@ type Fixtures = {
     loginModal: LoginModal;
     signUpModal: SignUpModal;
     contentPage: ContentPage;
+    dismissInterstitials: () => Promise<void>;
 };
 
 export const test = base.extend<Fixtures>({
@@ -49,6 +50,15 @@ export const test = base.extend<Fixtures>({
 
     contentPage: async ({ page, appLocale }, use) => {
         await use(new ContentPage(page, appLocale.home));
+    },
+
+    dismissInterstitials: async ({ appLocale, wrongLocationModal, importantNoticeModal }, use) => {
+        await use(async () => {
+            await wrongLocationModal.stayHereIfVisible();
+            if (appLocale.license === 'SCB') {
+                importantNoticeModal.confirmIfVisible();
+            }
+        });
     },
 });
 

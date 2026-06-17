@@ -4,10 +4,9 @@ import { type MenuPage } from '../config/content/content-page';
 export function describeContentSection(section: string, pages: MenuPage[]): void {
     for (const menuPage of pages) {
         describePerLocale(`${section} / ${menuPage.title}`, menuPage.filter, (locale) => {
-            test.beforeEach(async ({ contentPage, wrongLocationModal, importantNoticeModal }) => {
+            test.beforeEach(async ({ contentPage, dismissInterstitials }) => {
                 await contentPage.open(menuPage.path);
-                await wrongLocationModal.stayHereIfVisible();
-                await importantNoticeModal.confirmIfVisible();
+                await dismissInterstitials();
             });
 
             for (const cta of menuPage.ctas) {

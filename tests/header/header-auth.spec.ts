@@ -1,10 +1,9 @@
 import { test, expect, describePerLocale } from '../../src/fixtures/test';
 
 describePerLocale('Header auth entry', { feature: 'login' }, (locale) => {
-    test.beforeEach(async ({ page, wrongLocationModal, importantNoticeModal }) => {
+    test.beforeEach(async ({ page, dismissInterstitials }) => {
         await page.goto(locale.home);
-        await wrongLocationModal.stayHereIfVisible();
-        await importantNoticeModal.confirmIfVisible();
+        await dismissInterstitials();
     });
 
     test('Login button opens the login form', async ({ header, loginModal }) => {

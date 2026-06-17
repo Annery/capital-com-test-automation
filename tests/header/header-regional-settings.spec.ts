@@ -5,10 +5,9 @@ import { selectLocales } from '../../src/config/locale-filter';
 describePerLocale('Header regional settings', { feature: 'regionalSettings' }, (locale) => {
     const country = licenseCountry[locale.license];
 
-    test.beforeEach(async ({ page, wrongLocationModal, importantNoticeModal }) => {
+    test.beforeEach(async ({ page, dismissInterstitials }) => {
         await page.goto(locale.home);
-        await wrongLocationModal.stayHereIfVisible();
-        await importantNoticeModal.confirmIfVisible();
+        await dismissInterstitials();
     });
 
     test('Regional settings opens', async ({ header, regionalSettingsModal }) => {
