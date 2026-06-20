@@ -1,4 +1,5 @@
 import { Locator, Page } from '@playwright/test';
+import { BaseComponent } from '../base/BaseComponent';
 
 type HeaderConfig = {
     home: string;
@@ -7,37 +8,26 @@ type HeaderConfig = {
 const headerSelectors = {
     root: '#header-panel',
     logo: (home: string) => `a[href="${home}"]`,
+    regionalSettings: 'button[data-type="country_switcher_header"]',
+    login: 'button[data-type="btn_header_login"]',
+    openAccount: 'button[data-type="btn_header"]',
+    openPlatform: 'a[data-type="btn_header_my_account"]',
 } as const;
 
-export class Header {
-    private readonly root: Locator;
+export class Header extends BaseComponent {
     private readonly logo: Locator;
     private readonly regionalSettingsButton: Locator;
     private readonly loginButton: Locator;
     private readonly openAccountButton: Locator;
+    private readonly openPlatformButton: Locator;
 
     constructor(page: Page, config: HeaderConfig) {
-        this.root = page.locator(headerSelectors.root);
-
-        this.logo = this.root
-            .locator(headerSelectors.logo(config.home))
-            .filter({ visible: true })
-            .first();
-
-        this.regionalSettingsButton = this.root
-            .locator('button[data-type="country_switcher_header"]')
-            .filter({ visible: true })
-            .first();
-
-        this.loginButton = this.root
-            .locator('button[data-type="btn_header_login"]')
-            .filter({ visible: true })
-            .first();
-
-        this.openAccountButton = this.root
-            .locator('button[data-type="btn_header"]')
-            .filter({ visible: true })
-            .first();
+        super(page.locator(headerSelectors.root));
+        this.logo = this.visible(headerSelectors.logo(config.home));
+        this.regionalSettingsButton = this.visible(headerSelectors.regionalSettings);
+        this.loginButton = this.visible(headerSelectors.login);
+        this.openAccountButton = this.visible(headerSelectors.openAccount);
+        this.openPlatformButton = this.visible(headerSelectors.openPlatform);
     }
 
     async clickLogo() {
@@ -54,5 +44,9 @@ export class Header {
 
     async openOpenAccount() {
         await this.openAccountButton.click();
+    }
+
+    async openPlatform() {
+        await this.openPlatformButton.click();
     }
 }
