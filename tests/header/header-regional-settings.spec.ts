@@ -1,8 +1,8 @@
-import { test, expect, describePerLocale } from '../../src/fixtures/test';
+import { test, expect, describePerLocaleState } from '../../src/fixtures/test';
 import { licenseCountry, languageOptionName } from '../../src/config/regional-settings.data';
 import { selectLocales } from '../../src/config/locale-filter';
 
-describePerLocale('Header regional settings', { feature: 'regionalSettings' }, (locale) => {
+describePerLocaleState('Header regional settings', { feature: 'regionalSettings' }, (locale) => {
     const country = licenseCountry[locale.license];
 
     test.beforeEach(async ({ page, dismissInterstitials }) => {

@@ -1,9 +1,9 @@
-import { test, expect, describePerLocale } from './test';
+import { test, expect, describePerLocaleState } from './test';
 import { type MenuPage } from '../config/content/content-page';
 
 export function describeContentSection(section: string, pages: MenuPage[]): void {
     for (const menuPage of pages) {
-        describePerLocale(`${section} / ${menuPage.title}`, menuPage.filter, (locale) => {
+        describePerLocaleState(`${section} / ${menuPage.title}`, menuPage.filter, (locale) => {
             test.beforeEach(async ({ contentPage, dismissInterstitials }) => {
                 await contentPage.open(menuPage.path);
                 await dismissInterstitials();

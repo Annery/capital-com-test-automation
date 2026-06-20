@@ -1,6 +1,6 @@
-import { test, expect, describePerLocale } from '../../src/fixtures/test';
+import { test, expect, describePerLocaleState } from '../../src/fixtures/test';
 
-describePerLocale('Header navigation', { feature: 'navigation' }, (locale) => {
+describePerLocaleState('Header navigation', { feature: 'navigation' }, (locale) => {
     test('Logo opens main page', async ({ page, header, dismissInterstitials }) => {
         await page.goto(locale.nonHomePage);
         await dismissInterstitials();

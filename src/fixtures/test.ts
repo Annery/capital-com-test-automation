@@ -8,9 +8,11 @@ import { ImportantNoticeModal } from '../page-objects/modal-windows/ImportantNot
 import { RegionalSettingsModal } from '../page-objects/modal-windows/RegionalSettingsModal';
 import { LoginModal } from '../page-objects/modal-windows/LoginModal';
 import { SignUpModal } from '../page-objects/modal-windows/SignUpModal';
+import { storageStateFor, UserState } from '../config/auth';
 
 type Fixtures = {
     appLocale: Locale;
+    appUserState: UserState;
     header: Header;
     wrongLocationModal: WrongLocationModal;
     importantNoticeModal: ImportantNoticeModal;
@@ -23,6 +25,7 @@ type Fixtures = {
 
 export const test = base.extend<Fixtures>({
     appLocale: [locales[0], { option: true }],
+    appUserState: ['unregistered', { option: true }],
 
     header: async ({ page, appLocale: locale }, use) => {
         await use(new Header(page, locale));
@@ -64,20 +67,27 @@ export const test = base.extend<Fixtures>({
 
 export { expect };
 
-export function describePerLocale(
+export function describePerLocaleState(
     title: string,
     filter: LocaleFilter,
-    body: (locale: Locale) => void,
+    states: UserState[],
+    body: (locale: Locale, states: UserState) => void,
 ): void {
-    for (const locale of selectLocales(filter)) {
-        const label = `${locale.license} ${locale.language}`;
-        test.describe(
-            `[${label}] ${title}`,
-            { tag: [`@${locale.license}`, `@${locale.language}`] },
-            () => {
-                test.use({ appLocale: locale });
-                body(locale);
-            },
-        );
+    for (const state of states) {
+        for (const locale of selectLocales(filter)) {
+            const label = `${locale.license} ${locale.language} | ${state}`;
+            test.describe(
+                `[${label}] ${title}`,
+                { tag: [`@${locale.license}`, `@${locale.language}`, `@${state}`] },
+                () => {
+                    test.use({
+                        appLocale: locale,
+                        appUserState: state,
+                        storageState: storageStateFor(state),
+                    });
+                    body(locale, state);
+                },
+            );
+        }
     }
 }
