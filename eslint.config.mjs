@@ -23,5 +23,12 @@ export default tseslint.config(
             'playwright/no-skipped-test': 'off',
         },
     },
+    {
+        files: ['tests/**/*.setup.ts'],
+        rules: {
+            'playwright/expect-expect': 'off',
+            'playwright/no-conditional-in-test': 'off',
+        },
+    },
     prettier,
 );
