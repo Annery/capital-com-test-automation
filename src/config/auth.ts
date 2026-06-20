@@ -15,6 +15,8 @@ const stateStorage = {
 
 export type UserState = keyof typeof stateStorage;
 
+export const userStates = Object.keys(stateStorage) as UserState[];
+
 export const credentials = {
     email: process.env.CAPITAL_EMAIL,
     password: process.env.CAPITAL_PASSWORD,

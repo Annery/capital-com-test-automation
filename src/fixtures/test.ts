@@ -71,7 +71,7 @@ export function describePerLocaleState(
     title: string,
     filter: LocaleFilter,
     states: UserState[],
-    body: (locale: Locale, states: UserState) => void,
+    body: (locale: Locale, state: UserState) => void,
 ): void {
     for (const state of states) {
         for (const locale of selectLocales(filter)) {

@@ -10,6 +10,7 @@ const selectors = {
     password: '#password',
     submit: 'form button[type="submit"]',
     loggedIn: '[data-testid="logout-button"]',
+    logoutAlert: '.alert-popup',
 } as const;
 
 const LOGIN_PAGE = '/';
@@ -46,7 +47,12 @@ async function logIn(page: Page, email: string, password: string): Promise<void>
 
 async function logOut(page: Page): Promise<void> {
     await page.locator(selectors.loggedIn).click();
-    await page.goto(LOGIN_PAGE);
+
+    const confirmLogout = page
+        .locator(selectors.logoutAlert)
+        .getByRole('button', { name: 'Log out' });
+    await confirmLogout.click({ timeout: TIMEOUTS.alert }).catch(() => {});
+
     await expect(page.locator(selectors.headerLogin).filter({ visible: true }).first()).toBeVisible(
         { timeout: TIMEOUTS.auth },
     );
