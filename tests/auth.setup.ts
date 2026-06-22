@@ -1,8 +1,9 @@
-import { test as setup, expect, type Page } from '@playwright/test';
+import { test as setup, expect, type Page, Browser } from '@playwright/test';
 import fs from 'node:fs';
 import { authFiles, credentials } from '../src/config/auth';
 import { WrongLocationModal } from '../src/page-objects/modal-windows/WrongLocationModal';
 import { TIMEOUTS } from '../src/config/timeouts';
+import { BASE_URL } from '../src/config/site';
 
 const selectors = {
     headerLogin: 'button[data-type="btn_header_login"]',
@@ -11,18 +12,33 @@ const selectors = {
     submit: 'form button[type="submit"]',
     loggedIn: '[data-testid="logout-button"]',
     logoutAlert: '.alert-popup',
+    authorizedSignal: 'a[data-type="btn_header_my_account"]',
 } as const;
 
 const LOGIN_PAGE = '/';
-const MAX_AGE_MS = 6 * 60 * 60 * 1000;
 
-const isFresh = (file: string): boolean => {
-    try {
-        return Date.now() - fs.statSync(file).mtimeMs < MAX_AGE_MS;
-    } catch {
+async function authorizedSessionAlive(browser: Browser): Promise<boolean> {
+    if (!fs.existsSync(authFiles.authorized)) {
         return false;
     }
-};
+    const context = await browser.newContext({
+        storageState: authFiles.authorized,
+        baseURL: BASE_URL,
+    });
+    try {
+        const probe = await context.newPage();
+        await probe.goto(LOGIN_PAGE);
+        await new WrongLocationModal(probe).stayHereIfVisible();
+        await expect(
+            probe.locator(selectors.authorizedSignal).filter({ visible: true }).first(),
+        ).toBeVisible({ timeout: TIMEOUTS.loginAttempt });
+        return true;
+    } catch {
+        return false;
+    } finally {
+        await context.close();
+    }
+}
 
 async function logIn(page: Page, email: string, password: string): Promise<void> {
     await page.goto(LOGIN_PAGE);
@@ -66,17 +82,18 @@ function requireCredentials(): { email: string; password: string } {
     return { email, password };
 }
 
-setup('authenticate: authorized + unauthorized', async ({ page }) => {
-    setup.skip(
-        isFresh(authFiles.authorized) && isFresh(authFiles.unauthorized),
-        'Cached sessions are still fresh',
-    );
+setup('authenticate: authorized + unauthorized', async ({ page, browser }) => {
+    setup.setTimeout(TIMEOUTS.authSetup);
+
+    const cachedValid = await authorizedSessionAlive(browser);
+    setup.skip(cachedValid, 'Cached authorized session is still valid');
 
     const { email, password } = requireCredentials();
 
     await logIn(page, email, password);
-    await page.context().storageState({ path: authFiles.authorized });
-
     await logOut(page);
     await page.context().storageState({ path: authFiles.unauthorized });
+
+    await logIn(page, email, password);
+    await page.context().storageState({ path: authFiles.authorized });
 });

@@ -1,6 +1,7 @@
 import { defineConfig, devices } from '@playwright/test';
 import dotenv from 'dotenv';
 import path from 'path';
+import { BASE_URL } from './src/config/site';
 
 dotenv.config({ path: path.resolve(__dirname, '.env') });
 
@@ -13,7 +14,7 @@ export default defineConfig({
     reporter: [['list'], ['allure-playwright']],
     use: {
         trace: 'on-first-retry',
-        baseURL: 'https://capital.com',
+        baseURL: BASE_URL,
     },
 
     projects: [
