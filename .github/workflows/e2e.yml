@@ -1,0 +1,44 @@
+name: E2E tests
+
+on:
+    workflow_dispatch:
+        inputs:
+            grep:
+                description: 'Playwright --grep (e.g. @EN or @CYSEC @EN)'
+                default: '@EN'
+                required: false
+
+jobs:
+    test:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+
+            - uses: actions/setup-node@v4
+              with:
+                  node-version: 20
+                  cache: npm
+
+            - run: npm ci
+
+            - run: npx playwright install --with-deps chromium
+
+            - name: Run tests (headed for xvfb — reCAPTCHA blocked headless-login)
+              run: xvfb-run -a npx playwright test --project=chromium --headed --grep "${{ inputs.grep }}"
+              env:
+                  CAPITAL_EMAIL: ${{ secrets.CAPITAL_EMAIL }}
+                  CAPITAL_PASSWORD: ${{ secrets.CAPITAL_PASSWORD }}
+
+            - name: Upload allure-results
+              if: always()
+              uses: actions/upload-artifact@v4
+              with:
+                  name: allure-results
+                  path: allure-results
+
+            - name: Upload traces (on failure)
+              if: failure()
+              uses: actions/upload-artifact@v4
+              with:
+                  name: test-results
+                  path: test-results
