@@ -17,15 +17,12 @@ export type Language =
     | 'PL'
     | 'RO';
 
-export type Feature = 'regionalSettings' | 'login' | 'navigation' | 'learn';
-
 export interface Locale {
     license: License;
     language: Language;
     home: string;
     nonHomePage: string;
     entity: string;
-    unavailable?: Feature[];
 }
 
 export const locales: Locale[] = [
@@ -80,9 +77,7 @@ export const locales: Locale[] = [
         home: '/en-int',
         nonHomePage: '/en-int/professional',
         entity: 'Capital Com Online Investments Ltd',
-        unavailable: ['navigation', 'regionalSettings', 'login'],
     },
-    //TODO: /en-int → /en-eu with non-SCB geo (CYSEC): the entire locale moves to CYSEC. A proxy is required.
     {
         license: 'SCB',
         language: 'ES',
@@ -103,7 +98,6 @@ export const locales: Locale[] = [
         home: '/mn-int',
         nonHomePage: '/mn-int/help',
         entity: 'Capital Com Online Investments Ltd',
-        unavailable: ['learn'],
     },
     {
         license: 'SCB',
@@ -118,7 +112,6 @@ export const locales: Locale[] = [
         home: '/vi-int',
         nonHomePage: '/vi-int/help',
         entity: 'Công ty TNHH Đầu tư Trực tuyến Capital Com',
-        unavailable: ['learn'],
     },
     {
         license: 'SCB',

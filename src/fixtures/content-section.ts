@@ -34,7 +34,6 @@ export function describeContentSection(section: string, pages: MenuPage[]): void
     for (const menuPage of pages) {
         describePerLocaleState(
             `${section} / ${menuPage.title}`,
-            menuPage.filter,
             userStates,
             (locale, state) => {
                 test.beforeEach(async ({ contentPage, dismissInterstitials }) => {
@@ -60,6 +59,7 @@ export function describeContentSection(section: string, pages: MenuPage[]): void
                     });
                 }
             },
+            menuPage.filter,
         );
     }
 }

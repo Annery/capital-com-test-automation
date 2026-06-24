@@ -3,85 +3,74 @@ import { licenseCountry, languageOptionName } from '../../src/config/regional-se
 import { selectLocales } from '../../src/config/locale-filter';
 import { userStates } from '../../src/config/auth';
 
-describePerLocaleState(
-    'Header regional settings',
-    { feature: 'regionalSettings' },
-    userStates,
-    (locale) => {
-        const country = licenseCountry[locale.license];
+describePerLocaleState('Header regional settings', userStates, (locale) => {
+    const country = licenseCountry[locale.license];
 
-        test.beforeEach(async ({ page, dismissInterstitials }) => {
-            await page.goto(locale.home);
-            await dismissInterstitials();
-        });
+    test.beforeEach(async ({ page, dismissInterstitials }) => {
+        await page.goto(locale.home);
+        await dismissInterstitials();
+    });
 
-        test('Regional settings opens', async ({ header, regionalSettingsModal }) => {
-            await header.openRegionalSettings();
+    test('Regional settings opens', async ({ header, regionalSettingsModal }) => {
+        await header.openRegionalSettings();
 
-            await expect(regionalSettingsModal.root).toBeVisible();
-        });
+        await expect(regionalSettingsModal.root).toBeVisible();
+    });
 
-        test('Country dropdown opens with a search box', async ({
-            header,
-            regionalSettingsModal,
-        }) => {
-            await header.openRegionalSettings();
+    test('Country dropdown opens with a search box', async ({ header, regionalSettingsModal }) => {
+        await header.openRegionalSettings();
 
-            await regionalSettingsModal.openCountryList();
+        await regionalSettingsModal.openCountryList();
 
-            await expect(regionalSettingsModal.searchBox).toBeVisible();
-        });
+        await expect(regionalSettingsModal.searchBox).toBeVisible();
+    });
 
-        test(`${country.name} appears in the country search results`, async ({
-            header,
-            regionalSettingsModal,
-        }) => {
-            await header.openRegionalSettings();
-            await regionalSettingsModal.openCountryList();
-            await regionalSettingsModal.searchCountry(country.name);
+    test(`${country.name} appears in the country search results`, async ({
+        header,
+        regionalSettingsModal,
+    }) => {
+        await header.openRegionalSettings();
+        await regionalSettingsModal.openCountryList();
+        await regionalSettingsModal.searchCountry(country.name);
 
-            await expect(regionalSettingsModal.countryOption(country.slug)).toContainText(
-                country.name,
-            );
-        });
+        await expect(regionalSettingsModal.countryOption(country.slug)).toContainText(country.name);
+    });
 
-        test(`${country.name} can be selected`, async ({ header, regionalSettingsModal }) => {
-            await header.openRegionalSettings();
-            await regionalSettingsModal.openCountryList();
+    test(`${country.name} can be selected`, async ({ header, regionalSettingsModal }) => {
+        await header.openRegionalSettings();
+        await regionalSettingsModal.openCountryList();
 
-            await regionalSettingsModal.selectCountry(country.slug);
+        await regionalSettingsModal.selectCountry(country.slug);
 
-            await expect(regionalSettingsModal.countrySelector).toContainText(country.name);
-        });
+        await expect(regionalSettingsModal.countrySelector).toContainText(country.name);
+    });
 
-        test('Switching language keeps the license', async ({
-            page,
-            header,
-            regionalSettingsModal,
-        }) => {
-            const candidates = selectLocales({
-                license: locale.license,
-                feature: 'regionalSettings',
-            }).filter((l) => l.language !== locale.language);
-            test.skip(candidates.length === 0, `${locale.license} has a single language`);
+    test('Switching language keeps the license', async ({
+        page,
+        header,
+        regionalSettingsModal,
+    }) => {
+        const candidates = selectLocales({
+            license: locale.license,
+        }).filter((l) => l.language !== locale.language);
+        test.skip(candidates.length === 0, `${locale.license} has a single language`);
 
-            await header.openRegionalSettings();
-            await regionalSettingsModal.openLanguageList();
+        await header.openRegionalSettings();
+        await regionalSettingsModal.openLanguageList();
 
-            const offered = await regionalSettingsModal.offeredLanguages();
-            const target = candidates.find((l) => offered.includes(languageOptionName[l.language]));
-            test.skip(!target, `Language is locked on ${locale.home}`);
+        const offered = await regionalSettingsModal.offeredLanguages();
+        const target = candidates.find((l) => offered.includes(languageOptionName[l.language]));
+        test.skip(!target, `Language is locked on ${locale.home}`);
 
-            await regionalSettingsModal.selectLanguage(languageOptionName[target!.language]);
-            await regionalSettingsModal.apply();
+        await regionalSettingsModal.selectLanguage(languageOptionName[target!.language]);
+        await regionalSettingsModal.apply();
 
-            await expect(page).toHaveURL(new RegExp(`${target!.home}(?:[/?#]|$)`));
-        });
+        await expect(page).toHaveURL(new RegExp(`${target!.home}(?:[/?#]|$)`));
+    });
 
-        test('Entity matches the license', async ({ header, regionalSettingsModal }) => {
-            await header.openRegionalSettings();
+    test('Entity matches the license', async ({ header, regionalSettingsModal }) => {
+        await header.openRegionalSettings();
 
-            await expect(regionalSettingsModal.entity).toContainText(locale.entity);
-        });
-    },
-);
+        await expect(regionalSettingsModal.entity).toContainText(locale.entity);
+    });
+});

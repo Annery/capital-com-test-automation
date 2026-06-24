@@ -1,7 +1,7 @@
 import { test, expect, describePerLocaleState } from '../../src/fixtures/test';
 import { userStates } from '../../src/config/auth';
 
-describePerLocaleState('Header auth entry', { feature: 'login' }, userStates, (locale, state) => {
+describePerLocaleState('Header auth entry', userStates, (locale, state) => {
     test.beforeEach(async ({ page, dismissInterstitials }) => {
         await page.goto(locale.home);
         await dismissInterstitials();

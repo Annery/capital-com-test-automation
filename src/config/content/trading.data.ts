@@ -1,10 +1,13 @@
 import { type MenuPage, allLicenses } from '../content/content-page';
+import { type LocaleFilter } from '../locale-filter';
+
+const LEARN_EXCLUDE: LocaleFilter = { license: 'SCB', language: ['MN', 'VI'] };
 
 export const learnPages: MenuPage[] = [
     {
         title: 'Trading strategies',
         path: '/learn/trading-strategies',
-        filter: { feature: 'learn', license: allLicenses, excludeLanguage: 'RO' },
+        filter: { license: allLicenses, exclude: [{ language: 'RO' }, LEARN_EXCLUDE] },
         ctas: [
             { type: 'background_banner_block_btn1_signup' },
             { type: 'background_banner_block_btn2_demo' },
@@ -15,19 +18,19 @@ export const learnPages: MenuPage[] = [
     {
         title: 'Technical analysis',
         path: '/learn/technical-analysis',
-        filter: { feature: 'learn', license: allLicenses, excludeLanguage: 'RO' },
+        filter: { license: allLicenses, exclude: [{ language: 'RO' }, LEARN_EXCLUDE] },
         ctas: [{ type: 'banner_with_steps' }],
     },
     {
         title: 'Trading psychology',
         path: '/learn/trading-psychology',
-        filter: { feature: 'learn', license: allLicenses, excludeLanguage: 'RO' },
+        filter: { license: allLicenses, exclude: [{ language: 'RO' }, LEARN_EXCLUDE] },
         ctas: [{ type: 'banner_with_steps' }],
     },
     {
         title: 'All resources',
         path: '/learn',
-        filter: { feature: 'learn', license: allLicenses },
+        filter: { license: allLicenses, exclude: LEARN_EXCLUDE },
         ctas: [
             { type: 'background_banner_block_btn1_signup' },
             { type: 'background_banner_block_btn2_demo' },
@@ -37,7 +40,7 @@ export const learnPages: MenuPage[] = [
     {
         title: 'Webinars',
         path: '/learn/webinars',
-        filter: { feature: 'learn', license: 'CYSEC', language: 'IT' },
+        filter: { license: 'CYSEC', language: 'IT' },
         ctas: [{ type: 'banner_in_body_block_btn1_signup' }],
     },
 ];

@@ -69,9 +69,9 @@ export { expect };
 
 export function describePerLocaleState(
     title: string,
-    filter: LocaleFilter,
     states: UserState[],
     body: (locale: Locale, state: UserState) => void,
+    filter: LocaleFilter = {},
 ): void {
     for (const state of states) {
         for (const locale of selectLocales(filter)) {
