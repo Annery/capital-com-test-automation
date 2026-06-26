@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 import path from 'path';
 import { BASE_URL } from './src/config/site';
 
-dotenv.config({ path: path.resolve(__dirname, '.env') });
+dotenv.config({ path: path.resolve(__dirname, '.env'), quiet: true });
 
 export default defineConfig({
     testDir: './tests',
@@ -23,7 +23,6 @@ export default defineConfig({
         {
             name: 'chromium',
             use: { ...devices['Desktop Chrome'] },
-            dependencies: ['setup'],
         },
 
         {
