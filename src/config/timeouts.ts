@@ -5,5 +5,6 @@ export const TIMEOUTS = {
     loginAttempt: 10000,
     authSetup: 120000,
     navigation: 15000,
+    ctaResponse: 5000,
     alert: 3000,
 } as const;

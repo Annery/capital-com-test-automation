@@ -1,15 +1,15 @@
-import { test, expect, describePerLocaleState } from './test';
+import { test, expect, describePerLocaleState, clickUntilUrl, clickUntilVisible } from './test';
 import { Cta, ExpectedResult, type MenuPage } from '../config/content/content-page';
 import { userStates, UserState } from '../config/auth';
 import { SignUpModal } from '../page-objects/modal-windows/SignUpModal';
 import { Page } from '@playwright/test';
 import { ContentPage } from '../page-objects/pages/ContentPage';
-import { TIMEOUTS } from '../config/timeouts';
+import { PLATFORM_URL } from '../config/site';
 
 const expectedFor = (cta: Cta, state: UserState): ExpectedResult =>
     state === 'authorized' ? (cta.authorized ?? 'platformPage') : (cta.anonymous ?? 'signUpForm');
 
-async function clickAndVerify(
+async function expectCtaOutcome(
     result: ExpectedResult,
     ctaType: string,
     {
@@ -18,15 +18,10 @@ async function clickAndVerify(
         page,
     }: { contentPage: ContentPage; signUpModal: SignUpModal; page: Page },
 ): Promise<void> {
-    await contentPage.clickCta(ctaType);
-    switch (result) {
-        case 'signUpForm':
-            await expect(signUpModal.root).toBeVisible();
-            return;
-        case 'platformPage': {
-            await expect(page).toHaveURL(/\/trading\/platform\//, { timeout: TIMEOUTS.navigation });
-            return;
-        }
+    if (result === 'platformPage') {
+        await clickUntilUrl(page, () => contentPage.clickCta(ctaType), PLATFORM_URL);
+    } else {
+        await clickUntilVisible(() => contentPage.clickCta(ctaType), signUpModal.root);
     }
 }
 
@@ -55,7 +50,11 @@ export function describeContentSection(section: string, pages: MenuPage[]): void
 
                         await expect(contentPage.cta(cta.type)).toBeVisible();
 
-                        await clickAndVerify(result, cta.type, { contentPage, signUpModal, page });
+                        await expectCtaOutcome(result, cta.type, {
+                            contentPage,
+                            signUpModal,
+                            page,
+                        });
                     });
                 }
             },

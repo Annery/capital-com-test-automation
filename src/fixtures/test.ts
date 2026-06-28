@@ -1,4 +1,4 @@
-import { test as base, expect } from '@playwright/test';
+import { test as base, expect, type Page, type Locator } from '@playwright/test';
 import { locales, type Locale } from '../config/licenses';
 import { selectLocales, type LocaleFilter } from '../config/locale-filter';
 import { Header } from '../page-objects/components/Header';
@@ -9,6 +9,7 @@ import { RegionalSettingsModal } from '../page-objects/modal-windows/RegionalSet
 import { LoginModal } from '../page-objects/modal-windows/LoginModal';
 import { SignUpModal } from '../page-objects/modal-windows/SignUpModal';
 import { storageStateFor, UserState } from '../config/auth';
+import { TIMEOUTS } from '../config/timeouts';
 
 type Fixtures = {
     appLocale: Locale;
@@ -90,4 +91,29 @@ export function describePerLocaleState(
             );
         }
     }
+}
+
+export async function clickUntilUrl(
+    page: Page,
+    click: () => Promise<void>,
+    url: RegExp,
+): Promise<void> {
+    await expect(async () => {
+        if (!url.test(page.url())) {
+            await click();
+        }
+        await expect(page).toHaveURL(url, { timeout: TIMEOUTS.ctaResponse });
+    }).toPass({ timeout: TIMEOUTS.navigation });
+}
+
+export async function clickUntilVisible(
+    click: () => Promise<void>,
+    target: Locator,
+): Promise<void> {
+    await expect(async () => {
+        if (!(await target.isVisible())) {
+            await click();
+        }
+        await expect(target).toBeVisible({ timeout: TIMEOUTS.ctaResponse });
+    }).toPass({ timeout: TIMEOUTS.navigation });
 }

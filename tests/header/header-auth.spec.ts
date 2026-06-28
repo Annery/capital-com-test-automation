@@ -1,5 +1,6 @@
-import { test, expect, describePerLocaleState } from '../../src/fixtures/test';
+import { test, expect, describePerLocaleState, clickUntilUrl } from '../../src/fixtures/test';
 import { userStates } from '../../src/config/auth';
+import { PLATFORM_URL } from '../../src/config/site';
 
 describePerLocaleState('Header auth entry', userStates, (locale, state) => {
     test.beforeEach(async ({ page, dismissInterstitials }) => {
@@ -21,7 +22,6 @@ describePerLocaleState('Header auth entry', userStates, (locale, state) => {
 
     test('Open platform opens the trading platform', async ({ header, page }) => {
         test.skip(state !== 'authorized', 'Open platform is only available for authorized user');
-        await header.openPlatform();
-        await expect(page).toHaveURL(/\/trading\/platform\//);
+        await clickUntilUrl(page, () => header.openPlatform(), PLATFORM_URL);
     });
 });

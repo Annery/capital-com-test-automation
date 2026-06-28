@@ -21,6 +21,10 @@ export default tseslint.config(
         rules: {
             ...playwright.configs['flat/recommended'].rules,
             'playwright/no-skipped-test': 'off',
+            'playwright/expect-expect': [
+                'error',
+                { assertFunctionNames: ['expect', 'clickUntilUrl'] },
+            ],
         },
     },
     {

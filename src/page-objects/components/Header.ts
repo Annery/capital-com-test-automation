@@ -1,5 +1,6 @@
 import { Locator, Page } from '@playwright/test';
 import { BaseComponent } from '../base/BaseComponent';
+import { TIMEOUTS } from '../../config/timeouts';
 
 type HeaderConfig = {
     home: string;
@@ -47,6 +48,6 @@ export class Header extends BaseComponent {
     }
 
     async openPlatform() {
-        await this.openPlatformButton.click();
+        await this.openPlatformButton.click({ timeout: TIMEOUTS.ctaResponse });
     }
 }
