@@ -1,0 +1,632 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: content/pricing.spec.ts >> [SCB ZH_HANS | unregistered] Pricing / Pricing >> [banner_with_steps] -> signUpForm
+- Location: src/fixtures/content-section.ts:41:25
+
+# Error details
+
+```
+Error: Timeout 15000ms exceeded while waiting on the predicate
+```
+
+```
+Error: locator.scrollIntoViewIfNeeded: Test ended.
+Call log:
+  - waiting for locator('[data-sentry-component="Modal"]').filter({ has: locator('[data-type="closed_countries_disclaimer_confirm"]') }).locator('p').last()
+
+```
+
+# Page snapshot
+
+```yaml
+- generic [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e7]:
+      - text: 差价合约 (CFD) 是一种复杂的金融工具，利用杠杆交易虽然可能放大收益，但同样也会加剧亏损风险，导致资金快速流失。
+      - generic [ref=e8]:
+        - text: 数据显示，
+        - strong [ref=e9]: 78.48% 的散户投资者在使用该提供商服务进行差价合约交易时出现账户亏损。
+        - text: 在进行交易之前，请确保您充分了解差价合约的运作机制，并仔细评估自己是否有能力承担资金亏损的高风险。
+    - generic [ref=e11]:
+      - link [ref=e12] [cursor=pointer]:
+        - /url: /zh-hans
+        - img [ref=e13]
+      - generic [ref=e18]:
+        - navigation [ref=e19]:
+          - button "交易" [ref=e20]:
+            - button "交易" [ref=e21]:
+              - generic [ref=e22]: 交易
+          - button "市场" [ref=e23]:
+            - button "市场" [ref=e24]:
+              - generic [ref=e25]: 市场
+          - link "定价" [ref=e28] [cursor=pointer]:
+            - /url: /zh-hans/ways-to-trade/fees-and-charges
+          - button "关于我们" [ref=e29]:
+            - button "关于我们" [ref=e30]:
+              - generic [ref=e31]: 关于我们
+        - button "zh" [ref=e32] [cursor=pointer]:
+          - generic [ref=e34]: zh
+      - generic [ref=e36]:
+        - button "登录" [ref=e37] [cursor=pointer]: 登录
+        - button "开立账户" [ref=e38] [cursor=pointer]: 开立账户
+  - generic [ref=e40]:
+    - generic [ref=e47]:
+      - heading "服务费用" [level=1] [ref=e48]
+      - paragraph [ref=e50]: 所有服务费用都会在开仓前记录并披露。
+    - generic [ref=e53]:
+      - main [ref=e54]:
+        - generic [ref=e56]:
+          - heading "账户费用" [level=2] [ref=e57]
+          - table [ref=e59]:
+            - rowgroup [ref=e60]:
+              - row "开立账户 无" [ref=e61]:
+                - cell "开立账户" [ref=e62]:
+                  - paragraph [ref=e63]:
+                    - strong [ref=e64]: 开立账户
+                - cell "无" [ref=e65]:
+                  - paragraph [ref=e66]:
+                    - strong [ref=e68]: 无
+              - row "关闭账户 无" [ref=e69]:
+                - cell "关闭账户" [ref=e70]:
+                  - paragraph [ref=e71]:
+                    - strong [ref=e72]: 关闭账户
+                - cell "无" [ref=e73]:
+                  - paragraph [ref=e74]:
+                    - strong [ref=e76]: 无
+              - row "模拟账户 无" [ref=e77]:
+                - cell "模拟账户" [ref=e78]:
+                  - paragraph [ref=e79]:
+                    - strong [ref=e80]: 模拟账户
+                - cell "无" [ref=e81]:
+                  - paragraph [ref=e82]:
+                    - strong [ref=e84]: 无
+          - heading "存款和提款费用" [level=2] [ref=e85]
+          - table [ref=e87]:
+            - rowgroup [ref=e88]:
+              - row "存款费用 无" [ref=e89]:
+                - cell "存款费用" [ref=e90]:
+                  - paragraph [ref=e91]:
+                    - strong [ref=e92]: 存款费用
+                - cell "无" [ref=e93]:
+                  - paragraph [ref=e94]:
+                    - strong [ref=e96]: 无
+              - row "最低存款金额 银行卡和 Apple Pay 的最低存款金额为 10 USD/EUR/GBP。* *最低存款金额因付款方式而异。 电汇的最低存款金额为 50 EUR，或账户货币中的等值金额。" [ref=e97]:
+                - cell "最低存款金额" [ref=e98]:
+                  - paragraph [ref=e99]:
+                    - strong [ref=e100]: 最低存款金额
+                - cell "银行卡和 Apple Pay 的最低存款金额为 10 USD/EUR/GBP。* *最低存款金额因付款方式而异。 电汇的最低存款金额为 50 EUR，或账户货币中的等值金额。" [ref=e101]:
+                  - paragraph [ref=e102]:
+                    - strong [ref=e103]: 银行卡和 Apple Pay 的最低存款金额为 10 USD/EUR/GBP。*
+                  - paragraph [ref=e104]:
+                    - strong [ref=e105]: "*最低存款金额因付款方式而异。 电汇的最低存款金额为 50 EUR，或账户货币中的等值金额。"
+              - row "提款费用 无" [ref=e106]:
+                - cell "提款费用" [ref=e107]:
+                  - paragraph [ref=e108]:
+                    - strong [ref=e109]: 提款费用
+                - cell "无" [ref=e110]:
+                  - paragraph [ref=e111]:
+                    - strong [ref=e113]: 无
+              - row "最低提款金额 银行卡的最低提款金额为 20 USD/EUR/GBP* *最低提款金额因付款方式而异。完整详情请见[此处]。 如果账户余额低于最低提款限额，则只能提取账户全部余额。" [ref=e114]:
+                - cell "最低提款金额" [ref=e115]:
+                  - strong [ref=e116]: 最低提款金额
+                - cell "银行卡的最低提款金额为 20 USD/EUR/GBP* *最低提款金额因付款方式而异。完整详情请见[此处]。 如果账户余额低于最低提款限额，则只能提取账户全部余额。" [ref=e117]:
+                  - paragraph [ref=e118]:
+                    - strong [ref=e119]: 银行卡的最低提款金额为 20 USD/EUR/GBP*
+                  - paragraph [ref=e120]:
+                    - strong [ref=e121]:
+                      - text: "*最低提款金额因付款方式而异。完整详情请见["
+                      - link "此处" [ref=e122] [cursor=pointer]:
+                        - /url: https://help.capitalccbah.com/hc/zh-tw/articles/9626872797074-What-is-the-minimum-withdrawal-amount
+                      - text: "]。 如果账户余额低于最低提款限额，则只能提取账户全部余额。"
+          - heading "交易费用" [level=2] [ref=e123]
+          - table [ref=e125]:
+            - rowgroup [ref=e126]:
+              - row "点差 点差是金融品种买入价与卖出价之间的差额。 它是执行头寸时产生的成本。 了解更多 点差会动态变化，并根据标的市场状况进行调整。您可以在此查看特定金融工具的点差。" [ref=e127]:
+                - cell "点差 点差是金融品种买入价与卖出价之间的差额。 它是执行头寸时产生的成本。 了解更多" [ref=e128]:
+                  - paragraph [ref=e129]:
+                    - strong [ref=e130]: 点差
+                    - text: 点差是金融品种买入价与卖出价之间的差额。 它是执行头寸时产生的成本。
+                  - paragraph [ref=e131]:
+                    - link "了解更多" [ref=e132] [cursor=pointer]:
+                      - /url: /zh-hans/ways-to-trade/fees-and-charges#part_3
+                - cell "点差会动态变化，并根据标的市场状况进行调整。您可以在此查看特定金融工具的点差。" [ref=e133]:
+                  - paragraph [ref=e134]:
+                    - text: 点差会动态变化，并根据标的市场状况进行调整。您可以
+                    - link "在此" [ref=e135] [cursor=pointer]:
+                      - /url: /zh-hans/ways-to-trade/fees-and-charges#part_3
+                    - text: 查看特定金融工具的点差。
+              - row "交易佣金 无" [ref=e136]:
+                - cell "交易佣金" [ref=e137]:
+                  - paragraph [ref=e138]:
+                    - strong [ref=e139]: 交易佣金
+                - cell "无" [ref=e140]:
+                  - paragraph [ref=e141]:
+                    - strong [ref=e143]: 无
+              - row "隔夜费用* 当头寸持仓过夜时，将适用利息调整。 *除少数市场外，1:1 杠杆（无杠杆）差价合约 (CFD) 头寸无需支付隔夜仓息。 该费用是支付还是收取，取决于头寸方向。 各金融工具的费用列于下方金融工具表中。" [ref=e144]:
+                - cell "隔夜费用* 当头寸持仓过夜时，将适用利息调整。 *除少数市场外，1:1 杠杆（无杠杆）差价合约 (CFD) 头寸无需支付隔夜仓息。" [ref=e145]:
+                  - paragraph [ref=e146]:
+                    - strong [ref=e147]: 隔夜费用*
+                    - text: 当头寸持仓过夜时，将适用利息调整。
+                    - text: "*除少数市场外，1:1 杠杆（无杠杆）差价合约 (CFD) 头寸无需支付隔夜仓息。"
+                - cell "该费用是支付还是收取，取决于头寸方向。 各金融工具的费用列于下方金融工具表中。" [ref=e148]:
+                  - paragraph [ref=e149]: 该费用是支付还是收取，取决于头寸方向。 各金融工具的费用列于下方金融工具表中。
+              - row "货币转换 如果所交易市场的计价货币与交易账户货币不同，则需要支付货币转换费用。 在不同币种的子账户之间转移资金时，同样适用相同的外汇加价。 散户客户按即期外汇汇率的 0.7% 收取 专业客户按即期外汇汇率的 0.5% 收取" [ref=e150]:
+                - cell "货币转换 如果所交易市场的计价货币与交易账户货币不同，则需要支付货币转换费用。 在不同币种的子账户之间转移资金时，同样适用相同的外汇加价。" [ref=e151]:
+                  - paragraph [ref=e152]:
+                    - strong [ref=e153]: 货币转换
+                    - text: 如果所交易市场的计价货币与交易账户货币不同，则需要支付货币转换费用。
+                  - paragraph [ref=e154]: 在不同币种的子账户之间转移资金时，同样适用相同的外汇加价。
+                - cell "散户客户按即期外汇汇率的 0.7% 收取 专业客户按即期外汇汇率的 0.5% 收取" [ref=e155]:
+                  - strong [ref=e156]:
+                    - text: 散户客户按即期外汇汇率的 0.7% 收取
+                    - text: 专业客户按即期外汇汇率的 0.5% 收取
+              - row "保证止损单 (GSL)* 保证止损单会按指定价格平仓，从而消除执行时的滑点风险。 订单触发时将收取费用。 了解更多 保证止损单费用会因市场、入场价格和头寸规模而异。 该费用会在开仓前显示于交易单上。" [ref=e157]:
+                - cell "保证止损单 (GSL)* 保证止损单会按指定价格平仓，从而消除执行时的滑点风险。 订单触发时将收取费用。 了解更多" [ref=e158]:
+                  - paragraph [ref=e159]:
+                    - strong [ref=e160]: 保证止损单 (GSL)*
+                    - text: 保证止损单会按指定价格平仓，从而消除执行时的滑点风险。 订单触发时将收取费用。
+                  - paragraph [ref=e161]:
+                    - link "了解更多" [ref=e162] [cursor=pointer]:
+                      - /url: /zh-hans/ways-to-trade/fees-and-charges#part_5
+                - cell "保证止损单费用会因市场、入场价格和头寸规模而异。 该费用会在开仓前显示于交易单上。" [ref=e163]:
+                  - paragraph [ref=e164]: 保证止损单费用会因市场、入场价格和头寸规模而异。 该费用会在开仓前显示于交易单上。
+        - generic [ref=e166]:
+          - heading "按金融工具划分的点差和隔夜费用" [level=2] [ref=e168]
+          - generic [ref=e169]:
+            - generic [ref=e170]:
+              - generic [ref=e171]:
+                - button "所有 所有 大宗商品 加密货币 外汇 指数 股票 债券 利率" [ref=e172]:
+                  - button "所有" [ref=e173] [cursor=pointer]:
+                    - generic [ref=e174]:
+                      - textbox "name": 所有
+                  - generic:
+                    - generic:
+                      - button "所有"
+                      - button "大宗商品"
+                      - button "加密货币"
+                      - button "外汇"
+                      - button "指数"
+                      - button "股票"
+                      - button "债券"
+                      - button "利率"
+                - button [ref=e176]:
+                  - textbox "marketlist_search" [ref=e178]:
+                    - /placeholder: Search
+              - separator [ref=e179]
+            - generic [ref=e180]:
+              - generic [ref=e181]:
+                - generic [ref=e182]:
+                  - generic [ref=e183]: 名称
+                  - generic [ref=e184]: 卖出
+                  - generic [ref=e185]: 买入
+                  - generic [ref=e186]: 点差
+                  - generic [ref=e187]: 长仓隔夜仓息调整
+                  - generic [ref=e188]: 短仓隔夜仓息调整
+                  - generic [ref=e189]: 保证止损溢价
+                - link "Gold Gold Spot 4090.06 4090.56 0.50 -0.01553% 0.00731% 0.03" [ref=e190] [cursor=pointer]:
+                  - /url: /zh-hans/markets/commodities/gold-spot-shang-pin
+                  - generic [ref=e192]:
+                    - generic [ref=e193]: Gold
+                    - generic [ref=e194]: Gold Spot
+                  - generic [ref=e195]: "4090.06"
+                  - generic [ref=e196]: "4090.56"
+                  - generic [ref=e197]: "0.50"
+                  - generic [ref=e198]: "-0.01553%"
+                  - generic [ref=e199]: 0.00731%
+                  - generic [ref=e200]: "0.03"
+                - link "US100 US Tech 100 28991.5 28993.3 1.8 -0.02154% -0.00068% 0.02" [ref=e201] [cursor=pointer]:
+                  - /url: /zh-hans/markets/indices/us-tech-100-index
+                  - generic [ref=e203]:
+                    - generic [ref=e204]: US100
+                    - generic [ref=e205]: US Tech 100
+                  - generic [ref=e206]: "28991.5"
+                  - generic [ref=e207]: "28993.3"
+                  - generic [ref=e208]: "1.8"
+                  - generic [ref=e209]: "-0.02154%"
+                  - generic [ref=e210]: "-0.00068%"
+                  - generic [ref=e211]: "0.02"
+                - link "BTC/USD Bitcoin to US Dollar 59339.45 59389.45 50.00 -0.06164% 0.01370% 0.25" [ref=e212] [cursor=pointer]:
+                  - /url: /zh-hans/markets/cryptocurrencies/btc-usd-hangqing
+                  - generic [ref=e214]:
+                    - generic [ref=e215]: BTC/USD
+                    - generic [ref=e216]: Bitcoin to US Dollar
+                  - generic [ref=e217]: "59339.45"
+                  - generic [ref=e218]: "59389.45"
+                  - generic [ref=e219]: "50.00"
+                  - generic [ref=e220]: "-0.06164%"
+                  - generic [ref=e221]: 0.01370%
+                  - generic [ref=e222]: "0.25"
+                - link "XRP/USD Ripple to US Dollar 1.03971 1.04492 0.00521 -0.06164% 0.01370% 0.25" [ref=e223] [cursor=pointer]:
+                  - /url: /zh-hans/markets/cryptocurrencies/xrp-usd-hangqing
+                  - generic [ref=e225]:
+                    - generic [ref=e226]: XRP/USD
+                    - generic [ref=e227]: Ripple to US Dollar
+                  - generic [ref=e228]: "1.03971"
+                  - generic [ref=e229]: "1.04492"
+                  - generic [ref=e230]: "0.00521"
+                  - generic [ref=e231]: "-0.06164%"
+                  - generic [ref=e232]: 0.01370%
+                  - generic [ref=e233]: "0.25"
+                - link "ETH/USD Ethereum to US Dollar 1564.71 1566.46 1.75 -0.06164% 0.01370% 0.25" [ref=e234] [cursor=pointer]:
+                  - /url: /zh-hans/markets/cryptocurrencies/eth-usd-hangqing
+                  - generic [ref=e236]:
+                    - generic [ref=e237]: ETH/USD
+                    - generic [ref=e238]: Ethereum to US Dollar
+                  - generic [ref=e239]: "1564.71"
+                  - generic [ref=e240]: "1566.46"
+                  - generic [ref=e241]: "1.75"
+                  - generic [ref=e242]: "-0.06164%"
+                  - generic [ref=e243]: 0.01370%
+                  - generic [ref=e244]: "0.25"
+                - link "Oil - Crude US Crude Oil Spot 70.141 70.173 0.032 -0.01096% -0.01096% 0.03" [ref=e245] [cursor=pointer]:
+                  - /url: /zh-hans/markets/commodities/us-crude-oil-spot-shang-pin-1
+                  - generic [ref=e247]:
+                    - generic [ref=e248]: Oil - Crude
+                    - generic [ref=e249]: US Crude Oil Spot
+                  - generic [ref=e250]: "70.141"
+                  - generic [ref=e251]: "70.173"
+                  - generic [ref=e252]: "0.032"
+                  - generic [ref=e253]: "-0.01096%"
+                  - generic [ref=e254]: "-0.01096%"
+                  - generic [ref=e255]: "0.03"
+                - link "Silver Silver Spot 59.214 59.294 0.080 -0.01557% 0.00735% 0.03" [ref=e256] [cursor=pointer]:
+                  - /url: /zh-hans/markets/commodities/silver-spot-shang-pin
+                  - generic [ref=e258]:
+                    - generic [ref=e259]: Silver
+                    - generic [ref=e260]: Silver Spot
+                  - generic [ref=e261]: "59.214"
+                  - generic [ref=e262]: "59.294"
+                  - generic [ref=e263]: "0.080"
+                  - generic [ref=e264]: "-0.01557%"
+                  - generic [ref=e265]: 0.00735%
+                  - generic [ref=e266]: "0.03"
+              - generic [ref=e267]: 所示股价仅供参考，可能与实时市价存在差异。
+        - generic [ref=e269]:
+          - heading "点差费用" [level=2] [ref=e270]
+          - paragraph [ref=e271]: 买卖点差是金融工具卖出价 (bid) 与买入价 (ask) 之间的差额。 买入价始终高于卖出价，这意味着市场价格必须先覆盖点差，头寸才会开始产生正收益。
+          - paragraph [ref=e272]: 点差反映标的市场状况，包括供给、需求和流动性。 在流动性更高的市场中，点差通常更窄。
+          - generic [ref=e273]:
+            - heading "差价合约点差示例" [level=3] [ref=e274]
+            - list [ref=e275]:
+              - listitem [ref=e276]: • 持有 1 份 US Tech 100 合约，报价为 12475/76。
+              - listitem [ref=e277]: • 点差为 1 点。
+              - listitem [ref=e278]: • 开仓时支付一半点差，平仓时支付另一半点差。 总点差成本为 £1 × 1 点 = £1。
+          - heading "隔夜仓息" [level=2] [ref=e279]
+          - paragraph [ref=e280]: 当头寸持仓过夜时，将适用利息调整。 该金额是支付还是收取，取决于头寸方向和标的利率。 计算方式基于既定利率和市场因素，具体示例见下文。
+          - paragraph [ref=e281]: 对于大多数市场，1:1 杠杆（无杠杆）差价合约头寸不会产生隔夜仓息。 除以下金融工具外，无论杠杆水平如何，均适用隔夜仓息：
+          - list [ref=e282]:
+            - listitem [ref=e283]: • 天然气
+            - listitem [ref=e284]: • 美国可可
+            - listitem [ref=e285]: • 波动率指数 (VIX)
+            - listitem [ref=e286]: • 含土耳其里拉 (TRY) 的外汇货币对
+        - generic [ref=e288]:
+          - generic [ref=e290]:
+            - button "指数" [ref=e291]: 指数
+            - button "大宗商品" [ref=e292] [cursor=pointer]: 大宗商品
+            - button "外汇" [ref=e293] [cursor=pointer]: 外汇
+            - button "股票" [ref=e294] [cursor=pointer]: 股票
+            - button "加密货币" [ref=e295] [cursor=pointer]: 加密货币
+            - button "债券/利率" [ref=e296] [cursor=pointer]: 债券/利率
+          - generic [ref=e297]:
+            - generic [ref=e298]:
+              - heading "公式" [level=3] [ref=e299]
+              - paragraph [ref=e300]: 我们的每日费用 +/- 利率基准
+              - paragraph [ref=e301]: 该基准*跟踪标的市场的币种。 以 USD 计价的指数使用 SOFR。 以 GBP 计价的指数使用 SONIA。
+              - paragraph [ref=e302]: 我们的每日费用按年率 4% 计算。 年率会根据币种惯例除以 360 天或 365 天：
+              - paragraph [ref=e303]: GBP、CAD、SGD 及类似币种：4% / 365 = 每日 0.01096%；USD、EUR、CHF、JPY 及类似币种：4% / 360 = 每日 0.01111%
+              - paragraph [ref=e304]: 除数与各币种市场采用的计息天数标准一致。
+              - paragraph [ref=e305]: "*相关利率基准已包含标的点差调整。 这已反映在公布的利率中，例如 SOFR 或 SONIA。"
+            - generic [ref=e306]:
+              - heading "差价合约示例" [level=3] [ref=e307]
+              - list [ref=e308]:
+                - listitem [ref=e309]: • 持有 0.6 份 US Tech 100 合约，价格为 20,140。 总名义价值为 $12,084。
+                - listitem [ref=e310]: • US Tech 100 以 USD 计价。 相关基准利率为 SOFR，此处假设年率为 5.01448%，即每日 0.01393%。
+                - listitem [ref=e311]: • 平台每日费用为 0.01111%。
+                - listitem [ref=e312]: • 对于多头头寸：0.02504%（SOFR + 平台费用）= 支付 $3.03。
+                - listitem [ref=e313]: • 对于空头头寸：0.00282%（SOFR − 平台费用）= 收取 $0.34。
+        - generic [ref=e315]:
+          - heading "保证止损费用" [level=2] [ref=e316]
+          - paragraph [ref=e317]: 标准止损单会在指定价格水平平仓。 但标准止损单并不保证一定会按该指定价格执行；如果出现市场跳空，订单可能会按下一个可用价格执行。 在市场波动较大或流动性较低的情况下，可能会出现滑点。
+          - paragraph [ref=e318]: 保证止损单 (GSL) 会严格按照指定价格平仓，不受滑点或市场跳空影响。 如果订单被触发，将收取一项费用，即 GSL 溢价。
+          - paragraph [ref=e319]: GSL 费用根据三个部分计算：保证止损溢价（百分比）、头寸开仓价格和数量。
+          - strong [ref=e322]: GSL 费用 = GSL 溢价 × 头寸开仓价格 × 数量
+          - paragraph [ref=e323]: 选择 GSL 后，适用的 GSL 费用会显示在交易单上。
+          - heading "货币转换费用" [level=2] [ref=e324]
+          - paragraph [ref=e325]: 当交易币种与账户基础货币不同时适用。 该费用已包含在用于货币转换的汇率中，不会单独收取。 客户需支付 0.7% 的加价。
+          - paragraph [ref=e326]: 适用于：
+          - list [ref=e327]:
+            - listitem [ref=e328]: • 已实现盈亏
+            - listitem [ref=e329]: • 隔夜仓息调整
+            - listitem [ref=e330]: • 保证止损订单费用
+            - listitem [ref=e331]: • 股息
+            - listitem [ref=e332]: • 独立货币转换（手动转换账户余额）
+          - generic [ref=e333]:
+            - heading "示例 — 平仓交易" [level=3] [ref=e334]
+            - list [ref=e335]:
+              - listitem [ref=e336]: • 账户币种：USD。 一笔欧洲股票交易平仓，获得 €10.00 利润。
+              - listitem [ref=e337]: • 按即期汇率 (1.1300) 计算：$11.30
+              - listitem [ref=e338]: • 按包含 0.7% 费用的综合汇率 (1.1221) 计算：$11.22
+              - listitem [ref=e339]: • 货币转换费用：$0.08
+          - generic [ref=e340]:
+            - heading "示例 — 隔夜仓息调整" [level=3] [ref=e341]
+            - list [ref=e342]:
+              - listitem [ref=e343]: • 欧洲股票头寸。 适用一笔以 EUR 计价的 -€4.00 隔夜仓息调整。
+              - listitem [ref=e344]: • 按即期汇率 (1.1300) 计算：$4.52
+              - listitem [ref=e345]: • 按包含 0.7% 费用的综合汇率 (1.1379) 计算：$4.55
+              - listitem [ref=e346]: • 货币转换费用：$0.03
+          - paragraph [ref=e347]: 每次转换所使用的综合汇率可在“报告”部分以及平仓时查看。
+        - generic [ref=e349]:
+          - heading "更多定价信息" [level=2] [ref=e351]
+          - generic [ref=e354]:
+            - heading "了解 Capital.com 的定价" [level=3] [ref=e355]
+            - paragraph [ref=e357]: 详细了解您在我们平台交易时适用的所有成本费用。
+            - link "阅读更多" [ref=e358] [cursor=pointer]:
+              - /url: /zh-hans/ways-to-trade/pricing
+              - generic [ref=e359]: 阅读更多
+      - complementary [ref=e360]:
+        - navigation [ref=e364]:
+          - strong [ref=e365]: 目录
+          - separator
+          - generic [ref=e366]:
+            - link "账户费用" [ref=e368] [cursor=pointer]:
+              - /url: "#part_0"
+            - link "存款和提款费用" [ref=e370] [cursor=pointer]:
+              - /url: "#part_1"
+            - link "交易费用" [ref=e372] [cursor=pointer]:
+              - /url: "#part_2"
+            - link "点差费用" [ref=e374] [cursor=pointer]:
+              - /url: "#part_3"
+            - link "隔夜仓息" [ref=e376] [cursor=pointer]:
+              - /url: "#part_4"
+            - link "保证止损费用" [ref=e378] [cursor=pointer]:
+              - /url: "#part_5"
+            - link "货币转换费用" [ref=e380] [cursor=pointer]:
+              - /url: "#part_6"
+    - generic [ref=e384]:
+      - heading "三步即可开始交易" [level=2] [ref=e386]
+      - generic [ref=e387]:
+        - button [ref=e389] [cursor=pointer]
+        - generic [ref=e392]: 1. 创建您的账户（须符合资格要求）
+        - generic [ref=e393]: 2. 按您的方式存款
+        - generic [ref=e394]: 3. 准备就绪后即可开始交易
+  - contentinfo [ref=e396]:
+    - generic [ref=e397]:
+      - link [ref=e398] [cursor=pointer]:
+        - /url: /zh-hans
+        - img [ref=e399]
+      - generic [ref=e403]:
+        - link [ref=e404] [cursor=pointer]:
+          - /url: https://twitter.com/capitalcom
+        - link [ref=e405] [cursor=pointer]:
+          - /url: https://www.linkedin.com/company/capital.com/
+        - link [ref=e406] [cursor=pointer]:
+          - /url: https://www.instagram.com/capitalcom/
+        - link [ref=e407] [cursor=pointer]:
+          - /url: https://www.tiktok.com/@capitalcom_international
+        - link [ref=e408] [cursor=pointer]:
+          - /url: https://www.facebook.com/capitalcom/
+        - link [ref=e409] [cursor=pointer]:
+          - /url: https://www.reddit.com/r/capitalcom/
+      - generic [ref=e410]:
+        - link [ref=e411] [cursor=pointer]:
+          - /url: https://app.appsflyer.com/id1230088754?cp_device_id=acae9543-1967-4c08-81d1-c81b82dd2e23&af_js_web=true&af_ss_ver=2_9_0&pid=organic_web&af_ss_ui=true
+        - link [ref=e412] [cursor=pointer]:
+          - /url: https://app.appsflyer.com/com.capital.trading?cp_device_id=acae9543-1967-4c08-81d1-c81b82dd2e23&af_js_web=true&af_ss_ver=2_9_0&pid=organic_web&af_ss_ui=true
+        - link [ref=e413] [cursor=pointer]:
+          - /url: https://app.appsflyer.com/com.capital.trading.huawei-huawei?cp_device_id=acae9543-1967-4c08-81d1-c81b82dd2e23&af_js_web=true&af_ss_ver=2_9_0&pid=organic_web&af_ss_ui=true
+    - generic [ref=e414]:
+      - generic [ref=e415]:
+        - generic [ref=e416]:
+          - generic [ref=e417]:
+            - generic [ref=e418]: "国家/地区:"
+            - button "Singapore" [ref=e419] [cursor=pointer]:
+              - generic [ref=e421]: Singapore
+          - generic [ref=e422]: •
+          - generic [ref=e423]:
+            - generic [ref=e424]: "语言:"
+            - button "Simplified Chinese" [ref=e425] [cursor=pointer]:
+              - generic [ref=e426]: Simplified Chinese
+        - generic [ref=e427]:
+          - generic [ref=e428]: 您还可以联系：
+          - link "+65 3125 2302" [ref=e431] [cursor=pointer]:
+            - /url: tel:+65 3125 2302
+            - strong [ref=e432]: +65 3125 2302
+            - strong
+          - generic [ref=e433]: •
+          - link "support@capital.com" [ref=e435] [cursor=pointer]:
+            - /url: mailto:support@capital.com
+            - strong [ref=e436]: support@capital.com
+      - generic [ref=e437]:
+        - generic [ref=e438]:
+          - strong [ref=e440]: 交易
+          - generic [ref=e441]:
+            - generic [ref=e442]:
+              - generic [ref=e443]: 交易
+              - generic [ref=e444]:
+                - link "差价合约 (CFD)交易" [ref=e446] [cursor=pointer]:
+                  - /url: /zh-hans/ways-to-trade/cfd-trading
+                - link "模拟交易" [ref=e448] [cursor=pointer]:
+                  - /url: /zh-hans/trading-platforms/demo-account
+                - link "专业账户" [ref=e450] [cursor=pointer]:
+                  - /url: /zh-hans/professional
+            - generic [ref=e451]:
+              - generic [ref=e452]: 平台
+              - generic [ref=e453]:
+                - link "网页版平台" [ref=e455] [cursor=pointer]:
+                  - /url: /zh-hans/trading-platforms/web-platform
+                - link "手机 App" [ref=e457] [cursor=pointer]:
+                  - /url: /zh-hans/trading-platforms/mobile-apps
+                - link "TradingView" [ref=e459] [cursor=pointer]:
+                  - /url: /zh-hans/trading-platforms/trading-view
+                - link "MT4" [ref=e461] [cursor=pointer]:
+                  - /url: /zh-hans/trading-platforms/mt4
+                - link "MT5" [ref=e463] [cursor=pointer]:
+                  - /url: /zh-hans/trading-platforms/mt5
+            - generic [ref=e464]:
+              - generic [ref=e465]: 学习
+              - generic [ref=e466]:
+                - link "交易策略" [ref=e468] [cursor=pointer]:
+                  - /url: /zh-hans/learn/trading-strategies
+                - link "技术分析" [ref=e470] [cursor=pointer]:
+                  - /url: /zh-hans/learn/technical-analysis
+                - link "交易心理" [ref=e472] [cursor=pointer]:
+                  - /url: /zh-hans/learn/trading-psychology
+                - link "学习" [ref=e474] [cursor=pointer]:
+                  - /url: /zh-hans/learn
+        - generic [ref=e475]:
+          - strong [ref=e477]: 市场
+          - generic [ref=e478]:
+            - generic [ref=e479]:
+              - generic [ref=e480]: 我们的市场
+              - generic [ref=e481]:
+                - link "市场" [ref=e483] [cursor=pointer]:
+                  - /url: /zh-hans/markets
+                - link "股票" [ref=e485] [cursor=pointer]:
+                  - /url: /zh-hans/markets/shares
+                - link "外汇" [ref=e487] [cursor=pointer]:
+                  - /url: /zh-hans/markets/forex
+                - link "指数" [ref=e489] [cursor=pointer]:
+                  - /url: /zh-hans/markets/indices
+                - link "大宗商品" [ref=e491] [cursor=pointer]:
+                  - /url: /zh-hans/markets/commodities
+                - link "加密货币" [ref=e493] [cursor=pointer]:
+                  - /url: /zh-hans/markets/cryptocurrencies
+                - link "债券" [ref=e495] [cursor=pointer]:
+                  - /url: /zh-hans/markets/bonds
+                - link "利率" [ref=e497] [cursor=pointer]:
+                  - /url: /zh-hans/markets/interest-rates
+            - generic [ref=e498]:
+              - generic [ref=e499]: 市场洞察
+              - link "市场分析" [ref=e502] [cursor=pointer]:
+                - /url: /zh-hans/analysis
+        - link "定价" [ref=e505] [cursor=pointer]:
+          - /url: /zh-hans/ways-to-trade/fees-and-charges
+          - strong [ref=e506]: 定价
+        - generic [ref=e507]:
+          - strong [ref=e509]: 关于我们
+          - generic [ref=e510]:
+            - generic [ref=e511]:
+              - generic [ref=e512]: 关于我们
+              - generic [ref=e513]:
+                - link "公司简介" [ref=e515] [cursor=pointer]:
+                  - /url: /zh-hans/about-us
+                - link "我们的办公室" [ref=e517] [cursor=pointer]:
+                  - /url: /zh-hans/about-us/our-offices
+                - link "Capital.com 安全吗？" [ref=e519] [cursor=pointer]:
+                  - /url: /zh-hans/security-measures
+                - link "我们的商业模式" [ref=e521] [cursor=pointer]:
+                  - /url: /zh-hans/about-us/how-capital-makes-money
+            - generic [ref=e522]:
+              - generic [ref=e523]: 与我们合作
+              - generic [ref=e524]:
+                - link "合作伙伴计划" [ref=e526] [cursor=pointer]:
+                  - /url: /zh-hans/partnerships
+                - link "推荐好友" [ref=e528] [cursor=pointer]:
+                  - /url: /zh-hans/refer-a-friend
+            - generic [ref=e529]:
+              - generic [ref=e530]: 帮助
+              - generic [ref=e531]:
+                - link "帮助" [ref=e533] [cursor=pointer]:
+                  - /url: /zh-hans/help
+                - link "客户脆弱性" [ref=e535] [cursor=pointer]:
+                  - /url: /zh-hans/help/client-vulnerability
+                - link "联系我们" [ref=e537] [cursor=pointer]:
+                  - /url: /zh-hans/contact-us
+            - generic [ref=e538]:
+              - generic [ref=e539]: 法律信息
+              - generic [ref=e540]:
+                - link "条款和政策" [ref=e542] [cursor=pointer]:
+                  - /url: /zh-hans/terms-and-policies
+                - link "投诉" [ref=e544] [cursor=pointer]:
+                  - /url: /zh-hans/help/complaints
+    - generic [ref=e546]:
+      - paragraph [ref=e547]:
+        - text: 差价合约 (CFD) 是一种复杂的金融工具，利用杠杆交易虽然可能放大收益，但同样也会加剧亏损风险，导致资金快速流失。
+        - generic [ref=e548]:
+          - text: 数据显示，
+          - strong [ref=e549]: 78.48% 的散户投资者在使用该提供商服务进行差价合约交易时出现账户亏损。
+          - text: 在进行交易之前，请确保您充分了解差价合约的运作机制，并仔细评估自己是否有能力承担资金亏损的高风险。
+      - paragraph [ref=e550]
+      - paragraph [ref=e551]: Capital Com Online Investments Ltd 是一家有限责任公司，公司注册号为 209236B。Capital Com Online Investments Ltd 在巴哈马国注册，由巴哈马证券委员会授权，许可证号为 SIA-F245。公司注册办事处地址是：#3 Bayside Executive Park, Blake Road and West Bay Street, P. O. Box CB 13012, Nassau, The Bahamas。
+    - generic [ref=e552]:
+      - paragraph [ref=e553]: © 2026 Capital Com Online Investments Ltd
+      - generic [ref=e554]:
+        - link "网站地图" [ref=e555] [cursor=pointer]:
+          - /url: /zh-hans/sitemap
+        - link "Cookie 设置" [ref=e556] [cursor=pointer]:
+          - /url: ""
+        - link:
+          - /url: /zh-hans
+        - link "条款和政策" [ref=e557] [cursor=pointer]:
+          - /url: /zh-hans/terms-and-policies
+        - link "投诉程序 (SCB)" [ref=e558] [cursor=pointer]:
+          - /url: /zh-hans/help/complaints
+  - generic [ref=e561]:
+    - generic [ref=e562]:
+      - heading "Important Notice:" [level=3] [ref=e564]
+      - generic [ref=e565]:
+        - paragraph [ref=e566]: "The information on this website is not intended for, or directed at, any person or entity who is a resident of Singapore or any jurisdiction where such distribution or use would be contrary to local laws or regulations. By clicking \"I Confirm\", you expressly acknowledge and agree to the following:"
+        - paragraph [ref=e567]: 1. You are accessing this website on your own initiative.
+        - paragraph [ref=e568]: 2. You understand and accept that Capital Com Online Investments Ltd is not licensed or regulated by the Monetary Authority of Singapore (MAS) and is not authorized to provide financial services or solicit business in Singapore.
+        - paragraph [ref=e569]: 3. You are not a resident of Singapore, or, if you are, you acknowledge that the information and services on this website are not intended for you and are being accessed at your own risk and responsibility.
+        - paragraph [ref=e570]: If you do not agree with any of the above statements, please exit this site immediately.
+    - button "I Confirm" [disabled]
+  - button [ref=e571] [cursor=pointer]
+  - dialog "Cookie banner" [ref=e573]:
+    - generic [ref=e574]:
+      - paragraph [ref=e576]:
+        - text: We use cookies to enhance site navigation, personalise content and ads, and analyse site usage. You can change your cookie settings at any time. For more information, please see our
+        - link "More information about your privacy, opens in a new tab" [active] [ref=e577] [cursor=pointer]:
+          - /url: https://capital.com/cookies_policy_bah
+          - text: Cookie Policy
+        - text: .
+      - generic [ref=e578]:
+        - button "Reject all" [ref=e579] [cursor=pointer]
+        - button "Allow all cookies" [ref=e580] [cursor=pointer]
+        - button "Cookie settings" [ref=e581] [cursor=pointer]
+  - alert [ref=e582]
+```
+
+# Test source
+
+```ts
+  1  | import { Locator, Page } from '@playwright/test';
+  2  | import { BaseModal } from '../base/BaseModal';
+  3  | 
+  4  | const importantNoticeSelectors = {
+  5  |     confirmButton: '[data-type="closed_countries_disclaimer_confirm"]',
+  6  | } as const;
+  7  | 
+  8  | export class ImportantNoticeModal extends BaseModal {
+  9  |     private readonly lastParagraph: Locator;
+  10 | 
+  11 |     constructor(page: Page) {
+  12 |         const confirmButton = page.locator(importantNoticeSelectors.confirmButton);
+  13 |         super(page, confirmButton);
+  14 | 
+  15 |         const modal = page
+  16 |             .locator('[data-sentry-component="Modal"]')
+  17 |             .filter({ has: confirmButton });
+  18 | 
+  19 |         this.lastParagraph = modal.locator('p').last();
+  20 |     }
+  21 | 
+  22 |     async confirmIfVisible(): Promise<void> {
+  23 |         if (!(await this.isPresent())) {
+  24 |             return;
+  25 |         }
+  26 | 
+> 27 |         await this.lastParagraph.scrollIntoViewIfNeeded();
+     |                                  ^ Error: locator.scrollIntoViewIfNeeded: Test ended.
+  28 |         await this.root.click();
+  29 |         await this.waitUntilClosed();
+  30 |     }
+  31 | }
+  32 | 
+```
