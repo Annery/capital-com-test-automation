@@ -104,7 +104,7 @@ jobs:
                   cd store
                   git config user.name "ci"
                   git config user.email "[email protected]"
-                  git add allure-results
+                  git add -f allure-results
                   git commit -m "- Accumulated allure results from run ${{ github.run_id }}" || echo "nothing new"
                   git push
 
