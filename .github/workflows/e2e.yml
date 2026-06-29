@@ -86,20 +86,20 @@ jobs:
                   fi
 
             - name: Checkout accumulated results
-              if: always()
+              if: ${{ !cancelled() }}
               uses: actions/checkout@v4
               with:
                   ref: allure-results
                   path: store
 
             - name: Merge this run into accumulated results
-              if: always()
+              if: ${{ !cancelled() }}
               run: |
                   mkdir -p store/allure-results
                   if [ -d allure-results ]; then cp -r allure-results/. store/allure-results/; fi
 
             - name: Commit accumulated results
-              if: always()
+              if: ${{ !cancelled() }}
               run: |
                   cd store
                   git config user.name "ci"
@@ -109,7 +109,7 @@ jobs:
                   git push
 
             - name: Restore Allure trend history
-              if: always()
+              if: ${{ !cancelled() }}
               uses: actions/checkout@v4
               with:
                   ref: gh-pages
@@ -117,7 +117,7 @@ jobs:
               continue-on-error: true
 
             - name: Generate Allure report from full history
-              if: always()
+              if: ${{ !cancelled() }}
               run: |
                   mkdir -p store/allure-results/history
                   if [ -d gh-pages/history ]; then cp -r gh-pages/history/. store/allure-results/history/; fi
@@ -125,7 +125,7 @@ jobs:
                   allure generate store/allure-results --clean -o allure-report
 
             - name: Deploy report to GitHub Pages
-              if: always()
+              if: ${{ !cancelled() }}
               uses: peaceiris/actions-gh-pages@v4
               with:
                   github_token: ${{ secrets.GITHUB_TOKEN }}
