@@ -60,7 +60,7 @@ export const test = base.extend<Fixtures>({
         await use(async () => {
             await wrongLocationModal.stayHereIfVisible();
             if (appLocale.license === 'SCB') {
-                importantNoticeModal.confirmIfVisible();
+                await importantNoticeModal.confirmIfVisible();
             }
         });
     },
