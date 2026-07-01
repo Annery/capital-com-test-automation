@@ -5,6 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "playwright test",
+    "auth": "node -e \"require('fs').rmSync('.auth',{recursive:true,force:true})\" && playwright test --project=setup --headed",
+    "secret:auth": "powershell -NoProfile -Command \"[Convert]::ToBase64String([IO.File]::ReadAllBytes('.auth/authorized.json')) | Set-Clipboard\"",
+    "secret:unauth": "powershell -NoProfile -Command \"[Convert]::ToBase64String([IO.File]::ReadAllBytes('.auth/unauthorized.json')) | Set-Clipboard\"",
+    "check": "tsc --noEmit && eslint . && playwright test --list",
     "lint": "eslint .",
     "format": "prettier --write ."
   },
