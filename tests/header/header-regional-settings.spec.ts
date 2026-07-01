@@ -1,10 +1,10 @@
 import { test, expect, describePerLocaleState } from '../../src/fixtures/test';
-import { licenseCountry, languageOptionName } from '../../src/config/regional-settings.data';
+import { licenseSampleCountry, languageOptionName } from '../../src/config/regional-settings.data';
 import { selectLocales } from '../../src/config/locale-filter';
 import { userStates } from '../../src/config/auth';
 
 describePerLocaleState('Header regional settings', userStates, (locale) => {
-    const country = licenseCountry[locale.license];
+    const country = licenseSampleCountry[locale.license];
 
     test.beforeEach(async ({ page, dismissInterstitials }) => {
         await page.goto(locale.home);

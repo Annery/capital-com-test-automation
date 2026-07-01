@@ -5,7 +5,7 @@ export interface Country {
     slug: string;
 }
 
-export const licenseCountry: Record<License, Country> = {
+export const licenseSampleCountry: Record<License, Country> = {
     FCA: { name: 'United Kingdom', slug: 'united_kingdom' },
     ASIC: { name: 'Australia', slug: 'australia' },
     CMA: { name: 'United Arab Emirates', slug: 'united_arab_emirates' },

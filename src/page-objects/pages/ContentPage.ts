@@ -1,7 +1,7 @@
 import { Locator, Page } from '@playwright/test';
 
 const contentPageSelectors = {
-    tradingStrategiesPath: (home: string, path: string) => `${home}${path}`,
+    pageUrl: (home: string, path: string) => `${home}${path}`,
     type: (type: string) => `[data-type="${type}"]`,
 } as const;
 
@@ -12,7 +12,7 @@ export class ContentPage {
     ) {}
 
     async open(path: string): Promise<void> {
-        await this.page.goto(contentPageSelectors.tradingStrategiesPath(this.home, path));
+        await this.page.goto(contentPageSelectors.pageUrl(this.home, path));
     }
 
     cta(type: string): Locator {

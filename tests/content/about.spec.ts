@@ -9,4 +9,4 @@ import { describeContentSection } from '../../src/fixtures/content-section';
 describeContentSection('About / Legal', legalPages);
 describeContentSection('About / Help', helpPages);
 describeContentSection('About / Work with us', workWithUsPages);
-describeContentSection('About / Work with us', whoWeArePages);
+describeContentSection('About / Who we are', whoWeArePages);

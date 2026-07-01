@@ -10,7 +10,7 @@ const selectors = {
     email: '#email',
     password: '#password',
     submit: 'form button[type="submit"]',
-    loggedIn: '[data-testid="logout-button"]',
+    logoutButton: '[data-testid="logout-button"]',
     logoutAlert: '.alert-popup',
     authorizedSignal: 'a[data-type="btn_header_my_account"]',
 } as const;
@@ -49,7 +49,7 @@ async function logIn(page: Page, email: string, password: string): Promise<void>
     await page.locator(selectors.password).fill(password);
 
     const submit = page.locator(selectors.submit);
-    const loggedIn = page.locator(selectors.loggedIn);
+    const loggedIn = page.locator(selectors.logoutButton);
 
     await expect(submit).toBeEnabled();
 
@@ -62,7 +62,7 @@ async function logIn(page: Page, email: string, password: string): Promise<void>
 }
 
 async function logOut(page: Page): Promise<void> {
-    await page.locator(selectors.loggedIn).click();
+    await page.locator(selectors.logoutButton).click();
 
     const confirmLogout = page
         .locator(selectors.logoutAlert)
