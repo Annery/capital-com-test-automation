@@ -59,7 +59,7 @@ export const test = base.extend<Fixtures>({
     dismissInterstitials: async ({ appLocale, wrongLocationModal, importantNoticeModal }, use) => {
         await use(async () => {
             await wrongLocationModal.stayHereIfVisible();
-            if (appLocale.license === 'SCB') {
+            if (appLocale.license === 'SCB' && appLocale.language === 'ZH_HANS') {
                 await importantNoticeModal.confirmIfVisible();
             }
         });
