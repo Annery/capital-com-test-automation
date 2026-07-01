@@ -1,13 +1,14 @@
 import { type License } from '../licenses';
 import { type LocaleFilter } from '../locale-filter';
 
-export type ExpectedResult = 'signUpForm' | 'platformPage';
+export type ExpectedResult = 'signUpForm' | 'platformPage' | 'externalUrl';
 
 export interface Cta {
     type: string;
     unavailable?: License[];
     anonymous?: ExpectedResult;
     authorized?: ExpectedResult;
+    external?: RegExp;
 }
 
 export interface MenuPage {

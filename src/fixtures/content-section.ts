@@ -5,23 +5,36 @@ import { SignUpModal } from '../page-objects/modal-windows/SignUpModal';
 import { Page } from '@playwright/test';
 import { ContentPage } from '../page-objects/pages/ContentPage';
 import { PLATFORM_URL } from '../config/site';
+import { TIMEOUTS } from '../config/timeouts';
 
 const expectedFor = (cta: Cta, state: UserState): ExpectedResult =>
-    state === 'authorized' ? (cta.authorized ?? 'platformPage') : (cta.anonymous ?? 'signUpForm');
+    cta.external
+        ? 'externalUrl'
+        : state === 'authorized'
+          ? (cta.authorized ?? 'platformPage')
+          : (cta.anonymous ?? 'signUpForm');
 
 async function expectCtaOutcome(
     result: ExpectedResult,
-    ctaType: string,
+    cta: Cta,
     {
         contentPage,
         signUpModal,
         page,
     }: { contentPage: ContentPage; signUpModal: SignUpModal; page: Page },
 ): Promise<void> {
+    if (cta.external) {
+        const popupPromise = page.waitForEvent('popup', { timeout: TIMEOUTS.navigation });
+        await contentPage.clickCta(cta.type);
+        const popup = await popupPromise;
+        await expect(popup).toHaveURL(cta.external, { timeout: TIMEOUTS.navigation });
+        await popup.close();
+        return;
+    }
     if (result === 'platformPage') {
-        await clickUntilUrl(page, () => contentPage.clickCta(ctaType), PLATFORM_URL);
+        await clickUntilUrl(page, () => contentPage.clickCta(cta.type), PLATFORM_URL);
     } else {
-        await clickUntilVisible(() => contentPage.clickCta(ctaType), signUpModal.root);
+        await clickUntilVisible(() => contentPage.clickCta(cta.type), signUpModal.root);
     }
 }
 
@@ -50,7 +63,7 @@ export function describeContentSection(section: string, pages: MenuPage[]): void
 
                         await expect(contentPage.cta(cta.type)).toBeVisible();
 
-                        await expectCtaOutcome(result, cta.type, {
+                        await expectCtaOutcome(result, cta, {
                             contentPage,
                             signUpModal,
                             page,
