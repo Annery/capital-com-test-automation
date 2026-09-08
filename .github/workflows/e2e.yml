@@ -95,6 +95,10 @@ jobs:
                     echo "present=false" >> "$GITHUB_OUTPUT"
                   fi
 
+            - name: List live tests
+              if: ${{ !cancelled() && steps.results.outputs.present == 'true' }}
+              run: npx playwright test --list --reporter=json > live-tests.json
+
             - name: Checkout accumulated results
               if: ${{ !cancelled() && steps.results.outputs.present == 'true' }}
               uses: actions/checkout@v4
@@ -102,21 +106,26 @@ jobs:
                   ref: allure-results
                   path: store
 
-            - name: Merge this run into accumulated results
+            - name: Merge and compact accumulated results
               if: ${{ !cancelled() && steps.results.outputs.present == 'true' }}
               run: |
-                  mkdir -p store/allure-results
-                  if [ -d allure-results ]; then cp -r allure-results/. store/allure-results/; fi
+                  node scripts/allure-compact.js \
+                    --store store/allure-results \
+                    --incoming allure-results \
+                    --known-tests live-tests.json \
+                    --drop-traces
 
-            - name: Commit accumulated results
+            - name: Publish accumulated results (single commit, no history)
               if: ${{ !cancelled() && steps.results.outputs.present == 'true' }}
               run: |
                   cd store
                   git config user.name "ci"
                   git config user.email "[email protected]"
-                  git add -f allure-results
-                  git commit -m "- Accumulated allure results from run ${{ github.run_id }}" || echo "nothing new"
-                  git push
+                  git checkout --orphan compacted
+                  git rm -r --cached . -q
+                  git add -A -f allure-results
+                  git commit -m "Allure results (run ${{ github.run_id }})"
+                  git push --force origin compacted:allure-results
 
             - name: Restore Allure trend history
               if: ${{ !cancelled() && steps.results.outputs.present == 'true' }}
@@ -141,6 +150,7 @@ jobs:
                   github_token: ${{ secrets.GITHUB_TOKEN }}
                   publish_branch: gh-pages
                   publish_dir: allure-report
+                  force_orphan: true
 
             - name: Upload traces (on failure)
               if: failure()

@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "playwright test",
+    "allure:compact": "node scripts/allure-compact.js --store allure-results --dedupe --drop-traces",
     "auth": "node -e \"require('fs').rmSync('.auth',{recursive:true,force:true})\" && playwright test --project=setup --headed",
     "secret:auth": "powershell -NoProfile -Command \"[Convert]::ToBase64String([IO.File]::ReadAllBytes('.auth/authorized.json')) | Set-Clipboard\"",
     "secret:unauth": "powershell -NoProfile -Command \"[Convert]::ToBase64String([IO.File]::ReadAllBytes('.auth/unauthorized.json')) | Set-Clipboard\"",
